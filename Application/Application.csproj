@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Authorize\Commands\" />
+    <Folder Include="Authorize\DTOs\" />
+    <Folder Include="Authorize\Queries\" />
+    <Folder Include="Cars\Handlers\" />
+    <Folder Include="Cars\Dtos\" />
+    <Folder Include="Cars\Commands\" />
+    <Folder Include="Cars\Validator\" />
+    <Folder Include="Dealerships\Commands\" />
+    <Folder Include="Dealerships\DTOs\" />
+    <Folder Include="Dealerships\Validator\" />
+    <Folder Include="Dealerships\Queries\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Common\" />
+    <Folder Include="Behaviors\" />
+    <Folder Include="Validators\" />
+    <Folder Include="Queries\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+</Project>
