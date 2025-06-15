@@ -7,23 +7,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="Services\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Authorize\Commands\" />
     <Folder Include="Authorize\DTOs\" />
     <Folder Include="Authorize\Queries\" />
-    <Folder Include="Cars\Handlers\" />
-    <Folder Include="Cars\Dtos\" />
-    <Folder Include="Cars\Commands\" />
-    <Folder Include="Cars\Validator\" />
-    <Folder Include="Dealerships\Commands\" />
-    <Folder Include="Dealerships\DTOs\" />
-    <Folder Include="Dealerships\Validator\" />
-    <Folder Include="Dealerships\Queries\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Common\" />
-    <Folder Include="Behaviors\" />
-    <Folder Include="Validators\" />
-    <Folder Include="Queries\" />
-    <Folder Include="Services\" />
+    <Folder Include="Queries\DealershipResponse\Handlers\" />
+    <Folder Include="Queries\EmailLog\Handlers\" />
+    <Folder Include="Queries\User\Handlers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
+    <PackageReference Include="MailKit" Version="4.12.1" />
+    <PackageReference Include="MediatR" Version="12.5.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.6" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
 </Project>
