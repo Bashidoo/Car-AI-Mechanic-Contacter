@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Interfaces.AIGeneratedReport
+namespace Application.Dtos.AIGeneratedReportDtos
 {
-    public class IAIGeneratedReportRepository
+    public class AIGeneratedReportResponseDto
     {
     }
 }
