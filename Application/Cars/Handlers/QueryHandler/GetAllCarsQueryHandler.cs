@@ -17,18 +17,18 @@ public class GetAllCarsQueryHandler : IRequestHandler<GetAllCarsQuery, List<CarD
     }
 
   
-        public async Task<List<CarDto>> Handle(GetAllCarsQuery request, CancellationToken cancellationToken)
-        {
-            return await _context.Cars
-                .Select(car => new CarDto
-                {
-                    CarId = car.CarId,
-                    Model = car.Model,
-                    RegistrationNumber = car.RegistrationNumber,
-                    ImagePath = car.ImagePath
-                })
-                .ToListAsync(cancellationToken);
-        }
+    public async Task<List<CarDto>> Handle(GetAllCarsQuery request, CancellationToken cancellationToken)
+    {
+        return await _context.Cars
+            .Select(car => new CarDto
+            {
+                CarId = car.CarId,
+                Model = car.Model,
+                RegistrationNumber = car.RegistrationNumber,
+                ImagePath = car.ImagePath ?? "placeholder.jpg" // skydda mot null
+            })
+            .ToListAsync(cancellationToken);
+    }
     
 }
 
