@@ -76,6 +76,19 @@ namespace API.Controllers
 
             return Ok("Car updated.");
         }
+        
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCar(int id)
+        {
+            var result = await _mediator.Send(new DeleteCarCommand(id));
+
+            if (!result)
+                return NotFound();
+
+            return NoContent(); // 204 – lyckad radering utan innehåll
+        }
+
+
 
     }
 }
