@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
     
-    //TODO: GetAllCarsByID
-    //TODO: CreateCar
     //TODO: UpdateCar
     //TODO: DeleteCar
     [ApiController]
@@ -49,5 +47,35 @@ namespace API.Controllers
             var carId = await _mediator.Send(command);
             return CreatedAtAction(nameof(GetCarById), new { id = carId }, null);
         }
+        
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCar(int id, [FromBody] UpdateCarCommand command)
+        {
+            if (id != command.CarId)
+                return BadRequest("ID in URL does not match ID in request body");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _mediator.Send(command);
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
+        }
+        
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> PatchCar(int id, [FromBody] UpdatePatchCarCommand command)
+        {
+            if (id != command.CarId)
+                return BadRequest("ID mismatch");
+
+            var success = await _mediator.Send(command);
+            if (!success)
+                return NotFound();
+
+            return Ok("Car updated.");
+        }
+
     }
 }

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.Cars.Dtos;
 using MediatR;
 
 namespace Application.Cars.Commands
 {
-    public class UpdateCarCommand : IRequest<CarDto>
+    public class UpdatePatchCarCommand : IRequest<bool>
     {
         public int CarId { get; set; }
         public string? Model { get; set; }
