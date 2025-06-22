@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace Application.Cars.Dtos
 {
-    internal class CarResponseDto
+    public abstract class CarResponseDto
     {
-        
+        public int CarId { get; set; }
+        public string? Model { get; set; }
+        public string? RegistrationNumber { get; set; }
+        public string? ImagePath { get; set; }
     }
 }
