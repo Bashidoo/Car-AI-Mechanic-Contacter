@@ -1,4 +1,5 @@
-﻿using Application.Cars.Queries;
+﻿using Application.Cars.Commands;
+using Application.Cars.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,6 +38,16 @@ namespace API.Controllers
             }
 
             return Ok(result);
+        }
+        
+        [HttpPost("CreateCar")]
+        public async Task<IActionResult> CreateCar([FromBody] CreateCarCommand command)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var carId = await _mediator.Send(command);
+            return CreatedAtAction(nameof(GetCarById), new { id = carId }, null);
         }
     }
 }
