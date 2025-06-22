@@ -9,12 +9,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a56dd315-8def-41be-8ad6-8e533b5cf058" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Application/Cars/Commands/UpdatePatchCarCommand.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Application/Cars/Mappings/CarMapper.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/API/Controllers/CarsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/CarsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Cars/Commands/UpdateCarCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Cars/Commands/UpdateCarCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Cars/Handlers/CommandHandler/UpdateCarCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Cars/Handlers/CommandHandler/UpdateCarCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Cars/Commands/DeleteCarCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Cars/Commands/DeleteCarCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Cars/Handlers/CommandHandler/DeleteCarCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Cars/Handlers/CommandHandler/DeleteCarCommandHandler.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
