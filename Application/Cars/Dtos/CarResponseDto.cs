@@ -8,5 +8,6 @@ namespace Application.Cars.Dtos
 {
     internal class CarResponseDto
     {
+        
     }
 }

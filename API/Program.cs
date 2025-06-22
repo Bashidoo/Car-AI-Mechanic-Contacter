@@ -1,85 +1,64 @@
-﻿using CarDealership.Domain.Entities;
-using CarDealership.Infrastructure.Persistence;
-using CarDealership.Infrastructure.Repositories;
-using CarDealership.Infrastructure.Security;
-using CarDealership.Application.Interfaces.Userinterface;
-using CarDealership.Application.Features.Authentication;
-
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Identity;
-using FluentValidation.AspNetCore;
+﻿using Infrastructure;
 using MediatR;
-using System.Text;
-using FluentValidation;
+using Application;
+using Application.Cars.Handlers.QueryHandler;
+using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using CarDealership.Domain.Entities;
+using CarDealership.Infrastructure.Persistence;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// 1) Controllers & Swagger
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-// 2) EF Core — point to your SQL Express instance in appsettings.json
-builder.Services.AddDbContext<CarDealershipDbContext>(opts =>
-    opts.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
-
-// 3) Password hashing for User
-builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-
-// 4) MediatR + FluentValidation
-builder.Services.AddMediatR(cfg =>
-    cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommand).Assembly));
-builder.Services.AddFluentValidationAutoValidation()
-                .AddFluentValidationClientsideAdapters()
-                .AddValidatorsFromAssemblyContaining<RegisterUserCommand>();
-
-// 5) Your interfaces → Infrastructure implementations
-builder.Services.AddScoped<
-    CarDealership.Application.Interfaces.Userinterface.IUserRepository,
-    CarDealership.Infrastructure.Repositories.UserRepository>();
-
-builder.Services.AddScoped<
-    CarDealership.Application.Interfaces.Userinterface.IJwtTokenService,
-    CarDealership.Infrastructure.Security.JwtTokenService>();
-
-// 6) JWT Bearer Authentication
-var jwt = builder.Configuration.GetSection("Jwt");
-builder.Services.AddAuthentication(options =>
+namespace API
 {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(opts =>
-{
-    opts.RequireHttpsMetadata = true;
-    opts.SaveToken = true;
-    opts.TokenValidationParameters = new TokenValidationParameters
+    public class Program
     {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = jwt["Issuer"],
-        ValidAudience = jwt["Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(jwt["Key"]))
-    };
-});
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
 
-var app = builder.Build();
+            // Add config from appsettings.json
+            var configuration = builder.Configuration;
 
-// 7) Middleware pipeline
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+            // Add DbContext
+            builder.Services.AddDbContext<CarDealershipDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+            // Add Identity-hasher
+            builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
+            // Add custom dependencies
+            builder.Services.AddInfrastructure(configuration);
+
+            // Add MediatR
+            builder.Services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(typeof(GetAllCarsQueryHandler).Assembly);
+            });
+
+            builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+            var app = builder.Build();
+
+            // Swagger
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            app.UseAuthorization();
+            app.MapControllers();
+
+            // Run DB seeder (Bogus)
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<CarDealershipDbContext>();
+                DataSeederCars.SeedAsync(dbContext).GetAwaiter().GetResult();
+            }
+
+            app.Run();
+        }
+    }
 }
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
