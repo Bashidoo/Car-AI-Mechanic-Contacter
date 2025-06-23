@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Application.Dtos.AIGeneratedReportDtos
 {
-    public class AIGeneratedReportResponseDto
+    public class AIGeneratedReportRequestDto
     {
+        public int CarId { get; set; }
+        public string Prompt { get; set; }
     }
+
 }

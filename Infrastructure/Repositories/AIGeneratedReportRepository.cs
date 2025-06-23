@@ -11,38 +11,57 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
-    public class AIGeneratedReportRepository : IAIGeneratedReportRepository
+    public class AIGeneratedReportRepository : IAIGeneratedRepo rtRepository
     {
-        private readonly AppDbContext _db;
+        private readonly ApplicationDbContext _context;
 
-        public AIGeneratedReportRepository(AppDbContext db)
+        public AIGeneratedReportRepository(ApplicationDbContext context)
         {
-            _db = db;
+            _context = context;
         }
 
-        public Task<OperationResult<AIGeneratedReport>> AddAsync(AIGeneratedReport report)
+        public async Task<AIGeneratedReport> GetByIdAsync(int id) =>
+            await _context.AIGeneratedReports.FindAsync(id);
+
+        public async Task<IEnumerable<AIGeneratedReport>> GetAllAsync() =>
+            await _context.AIGeneratedReports.ToListAsync();
+
+        public async Task<AIGeneratedReport> AddAsync(AIGeneratedReport report)
+        {
+            _context.AIGeneratedReports.Add(report);
+            await _context.SaveChangesAsync();
+            return report;
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var report = await _context.AIGeneratedReports.FindAsync(id);
+            if (report == null) return false;
+
+            _context.AIGeneratedReports.Remove(report);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        Task<OperationResult<AIGeneratedReport>> IAIGeneratedReportRepository.AddAsync(AIGeneratedReport report)
         {
             throw new NotImplementedException();
         }
 
-        public Task<AIGeneratedReport> CreateAsync(AIGeneratedReport report)
+        Task<OperationResult<IEnumerable<AIGeneratedReport>>> IAIGeneratedReportRepository.GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<OperationResult<bool>> DeleteAsync(int id)
+        Task<OperationResult<AIGeneratedReport?>> IAIGeneratedReportRepository.GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<OperationResult<IEnumerable<AIGeneratedReport>>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<OperationResult<AIGeneratedReport?>> GetByIdAsync(int id)
+        Task<OperationResult<bool>> IAIGeneratedReportRepository.DeleteAsync(int id)
         {
             throw new NotImplementedException();
         }
     }
+
 }
