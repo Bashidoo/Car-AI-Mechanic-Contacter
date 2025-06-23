@@ -3,7 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Models
 {
-    public class CarIssues
+    [Table("CarIssue")]
+    public class CarIssue
     {
         [Key]
         public int CarIssueId { get; set; }

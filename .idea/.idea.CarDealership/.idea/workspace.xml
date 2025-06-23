@@ -10,9 +10,13 @@
   <component name="ChangeListManager">
     <list default="true" id="a56dd315-8def-41be-8ad6-8e533b5cf058" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Controllers/CarsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/CarsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Cars/Commands/DeleteCarCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Cars/Commands/DeleteCarCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Cars/Handlers/CommandHandler/DeleteCarCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Cars/Handlers/CommandHandler/DeleteCarCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Controllers/CarIssuesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/CarIssuesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/CarIssues/Dtos/CarIssueDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/CarIssues/Dtos/CarIssueDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/CarIssues/Handlers/GetAllCarIssuesQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/CarIssues/Handlers/GetAllCarIssuesQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/CarIssues/Queries/GetAllCarIssuesQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/CarIssues/Queries/GetAllCarIssuesQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Interfaces/IAppDbContext/IAppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Interfaces/IAppDbContext/IAppDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/Models/Car.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/Models/Car.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/Models/CarIssue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/Models/CarIssue.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,21 +52,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.API: IIS Express.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;CrudUpdateCar&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.API: IIS Express.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "CrudGetAllCarIssues",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.API: IIS Express">
     <configuration name="API: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/API/API.csproj" />
@@ -105,6 +109,7 @@
       <workItem from="1750364820510" duration="12388000" />
       <workItem from="1750607097705" duration="771000" />
       <workItem from="1750607908960" duration="7731000" />
+      <workItem from="1750636212637" duration="4482000" />
     </task>
     <servers />
   </component>
