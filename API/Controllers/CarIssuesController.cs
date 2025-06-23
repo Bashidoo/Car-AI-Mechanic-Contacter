@@ -1,8 +1,9 @@
+using Application.CarIssues.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    //Todo: GetallCarIssues
     //Todo: GetCarIssueById
     //Todo: CreateCarIssue
     //Todo: UpdateCarIssue

@@ -24,7 +24,7 @@ namespace Domain.Models
         public string? ImagePath { get; set; }
 
         // Navigation property to related car issues
-        public ICollection<CarIssues> Issues { get; set; }
+        public ICollection<CarIssue> Issues { get; set; }
 
         // Navigation property to related dealership responses (om du har det)
         //public ICollection<DealershipResponse> Responses { get; set; }
