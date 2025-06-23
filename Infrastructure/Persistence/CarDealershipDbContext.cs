@@ -8,7 +8,7 @@ namespace CarDealership.Infrastructure.Persistence
     public class CarDealershipDbContext : DbContext, IAppDbContext
     {
         public DbSet<Car> Cars { get; set; }
-        public DbSet<CarIssues> CarIssues { get; set; }
+        public DbSet<CarIssue> CarIssues { get; set; }
         public DbSet<User> Users { get; set; }
 
         public CarDealershipDbContext(DbContextOptions<CarDealershipDbContext> options)
