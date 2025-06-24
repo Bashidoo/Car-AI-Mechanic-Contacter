@@ -9,14 +9,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a56dd315-8def-41be-8ad6-8e533b5cf058" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Application/CarIssues/Handlers/GetCarIssueByIdQueryHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Application/CarIssues/Queries/GetCarIssueByIdQuery.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/API/Controllers/CarIssuesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/CarIssuesController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/CarIssues/Dtos/CarIssueDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/CarIssues/Dtos/CarIssueDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/CarIssues/Handlers/GetAllCarIssuesQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/CarIssues/Handlers/GetAllCarIssuesQueryHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/CarIssues/Queries/GetAllCarIssuesQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/CarIssues/Queries/GetAllCarIssuesQuery.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Interfaces/IAppDbContext/IAppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Interfaces/IAppDbContext/IAppDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Domain/Models/Car.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/Models/Car.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Domain/Models/CarIssue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/Models/CarIssue.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/Persistence/CarDealershipDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/Persistence/CarDealershipDbContext.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +56,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "CrudGetAllCarIssues",
+    "git-widget-placeholder": "CrudGetCarIssueById",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
