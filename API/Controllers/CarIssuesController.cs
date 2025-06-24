@@ -19,11 +19,25 @@ namespace API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllCarIssues")]
         public async Task<IActionResult> GetAll()
         {
             var result = await _mediator.Send(new GetAllCarIssuesQuery());
             return Ok(result);
         }
+        
+        [HttpGet("GetCarIssueById/{id}")]
+        public async Task<IActionResult> GetCarIssueById(int id)
+        {
+            var result = await _mediator.Send(new GetCarIssueByIdQuery(id));
+
+            if (result == null)
+            {
+                return NotFound($"Car issue with ID {id} not found.");
+            }
+
+            return Ok(result);
+        }
+
     }
 }

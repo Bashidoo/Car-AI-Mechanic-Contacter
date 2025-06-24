@@ -11,11 +11,11 @@ namespace Domain.Models
 
         [Required, MaxLength(1000)]
         [Column(TypeName = "nvarchar(1000)")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [MaxLength(500)]
         [Column(TypeName = "nvarchar(500)")]
-        public string OptionalComment { get; set; }
+        public string? OptionalComment { get; set; }
 
         [Column(TypeName = "nvarchar(MAX)")]
         public string AIAnalysis { get; set; }
