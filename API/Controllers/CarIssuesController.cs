@@ -1,3 +1,4 @@
+using Application.CarIssues.Commands;
 using Application.CarIssues.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -39,5 +40,14 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [HttpPost("CreateCarIssue")]
+        public async Task<IActionResult> CreateCarIssue([FromBody] CreateCarIssueCommand command)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var carIssueDto = await _mediator.Send(command);
+            return CreatedAtAction(nameof(GetCarIssueById), new { id = carIssueDto.CarIssueId }, carIssueDto);
+        }
     }
 }
