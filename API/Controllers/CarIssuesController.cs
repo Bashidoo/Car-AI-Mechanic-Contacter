@@ -52,7 +52,7 @@ namespace API.Controllers
         
         //UpdateCarIssue
         
-        [HttpPut("UpdateCarIssue {id}")]
+        [HttpPut("UpdateCarIssue/{id}")]
         public async Task<IActionResult> UpdateCarIssue(int id, [FromBody] UpdateCarIssueCommand command)
         {
             if (id != command.CarIssueId)

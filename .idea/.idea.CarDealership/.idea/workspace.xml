@@ -9,31 +9,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a56dd315-8def-41be-8ad6-8e533b5cf058" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Application/CarIssues/Commands/DeleteCarIssueCommand.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Application/CarIssues/Handlers/DeleteCarIssueCommandHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Application/CarIssues/Validator/DeleteCarIssueCommandValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/indexLayout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/projectSettingsUpdater.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-06-22_17_53_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-06-22_17_53__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-06-22_17_56_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-06-22_17_56__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-06-23_01_50_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-06-23_01_50__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-06-23_02_58_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-06-23_02_58_[Changes]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-06-23_02_58__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-06-23_02_58__Changes_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-06-24_14_49_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-06-24_14_49__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/config/applicationhost.config" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Controllers/CarIssuesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/CarIssuesController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Controllers/CarsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/CarsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/DependencyInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/DependencyInjection.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Application/CarIssues/Validator/CreateCarIssueCommandValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/CarIssues/Handlers/CreateCarIssueCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/CarIssues/Handlers/CreateCarIssueCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/CarIssues/Handlers/GetAllCarIssuesQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/CarIssues/Handlers/GetAllCarIssuesQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/CarIssues/Mapping/CarIssueMappingProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/CarIssues/Mapping/CarIssueMappingProfile.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Application/Interfaces/CarIssueInterface/ICarIssueRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Interfaces/CarIssueInterface/ICarIssueRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/DependencyInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/DependencyInjection.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Infrastructure/Repositories/CarIssueRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/Repositories/CarIssueRepository.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,7 +57,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "CrudDeleteCarIssue",
+    "git-widget-placeholder": "FixTheLastCode",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
