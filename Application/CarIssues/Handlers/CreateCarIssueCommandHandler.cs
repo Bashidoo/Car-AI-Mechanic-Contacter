@@ -1,6 +1,9 @@
 using Application.CarIssues.Commands;
 using Application.CarIssues.Dtos;
+using Application.Interfaces.CarIssueInterface;
 using Application.Interfaces.IAppDbContext;
+using AutoMapper;
+using Domain.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,40 +11,26 @@ namespace Application.CarIssues.Handlers
 {
     public class CreateCarIssueCommandHandler : IRequestHandler<CreateCarIssueCommand, CarIssueDto>
     {
-       private readonly IAppDbContext _context;
-       
-        public CreateCarIssueCommandHandler(IAppDbContext context)
+       private readonly IMapper _mapper;
+       private readonly ICarIssueRepository _repository;
+        public CreateCarIssueCommandHandler(IMapper mapper, ICarIssueRepository repository)
         {
-            _context = context;
+            _mapper = mapper;
+            _repository = repository;
         }
 
         public async Task<CarIssueDto> Handle(CreateCarIssueCommand request, CancellationToken cancellationToken)
         {
-            var carExists = await _context.Cars.AnyAsync(c => c.CarId == request.CarId, cancellationToken);
-            if (!carExists)
-                throw new KeyNotFoundException($"Car with ID {request.CarId} does not exist.");
-            
-            var carIssue = new Domain.Models.CarIssue
+            var carIssue = new CarIssue
             {
                 Description = request.Description,
-                OptionalComment = request.OptionalComment,
-                AIAnalysis = request.AIAnalysis,
                 CarId = request.CarId,
                 CreatedAt = DateTime.UtcNow
             };
 
-            _context.CarIssues.Add(carIssue);
-            await _context.SaveChangesAsync(cancellationToken);
+            await _repository.CreateAsync(carIssue, cancellationToken);
 
-            return new CarIssueDto
-            {
-                CarIssueId = carIssue.CarIssueId,
-                Description = carIssue.Description,
-                OptionalComment = carIssue.OptionalComment,
-                AIAnalysis = carIssue.AIAnalysis,
-                CreatedAt = carIssue.CreatedAt,
-                CarId = carIssue.CarId
-            };
+            return _mapper.Map<CarIssueDto>(carIssue);
         }
         
     }

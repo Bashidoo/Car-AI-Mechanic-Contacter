@@ -1,33 +1,27 @@
 using Application.CarIssues.Dtos;
 using Application.CarIssues.Queries;
-using Application.Interfaces.IAppDbContext;
+using Application.Interfaces.CarIssueInterface;
+using AutoMapper;
+using Domain.Models;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.CarIssues.Handlers
 {
     public class GetAllCarIssuesQueryHandler : IRequestHandler<GetAllCarIssuesQuery, List<CarIssueDto>>
     {
-        private readonly IAppDbContext _context;
+        private readonly ICarIssueRepository _repository;
+        private readonly IMapper _mapper;
 
-        public GetAllCarIssuesQueryHandler(IAppDbContext context)
+        public GetAllCarIssuesQueryHandler(ICarIssueRepository repository, IMapper mapper)
         {
-            _context = context;
+            _repository = repository;
+            _mapper = mapper;
         }
 
         public async Task<List<CarIssueDto>> Handle(GetAllCarIssuesQuery request, CancellationToken cancellationToken)
         {
-            return await _context.CarIssues
-                .Select(issue => new CarIssueDto
-                {
-                    CarIssueId = issue.CarIssueId,
-                    Description = issue.Description,
-                    OptionalComment = issue.OptionalComment,
-                    AIAnalysis = issue.AIAnalysis,
-                    CreatedAt = issue.CreatedAt,
-                    CarId = issue.CarId
-                })
-                .ToListAsync(cancellationToken);
+            var carIssues = await _repository.GetAllAsync(cancellationToken);
+            return _mapper.Map<List<CarIssueDto>>(carIssues);
         }
     }
 }
