@@ -9,10 +9,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a56dd315-8def-41be-8ad6-8e533b5cf058" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Application/CarIssues/Commands/CreateCarIssueCommand.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Application/CarIssues/Handlers/CreateCarIssueCommandHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Application/CarIssues/Commands/UpdateCarIssueCommand.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Application/CarIssues/Handlers/UpdateCarIssueCommandHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Application/CarIssues/Mapping/CarIssueMappingProfile.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Application/CarIssues/Validator/UpdateCarIssueCommandValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Application/Interfaces/CarIssueInterface/ICarIssueRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Infrastructure/Repositories/CarIssueRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/API/Controllers/CarIssuesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/CarIssuesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/DependencyInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/DependencyInjection.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +60,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "CrudCreateCarIssue",
+    "git-widget-placeholder": "CrudUpdateCarIssue",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",

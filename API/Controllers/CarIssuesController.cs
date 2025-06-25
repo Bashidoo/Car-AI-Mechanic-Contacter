@@ -49,5 +49,25 @@ namespace API.Controllers
             var carIssueDto = await _mediator.Send(command);
             return CreatedAtAction(nameof(GetCarIssueById), new { id = carIssueDto.CarIssueId }, carIssueDto);
         }
+        
+        //UpdateCarIssue
+        
+        [HttpPut("UpdateCarIssue {id}")]
+        public async Task<IActionResult> UpdateCarIssue(int id, [FromBody] UpdateCarIssueCommand command)
+        {
+            if (id != command.CarIssueId)
+                return BadRequest("ID in URL does not match ID in request body");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _mediator.Send(command);
+            if (!result)
+            {
+                return NotFound($"Car issue with ID {id} not found.");
+            }
+
+            return NoContent(); // 204 No Content
+        }
     }
 }

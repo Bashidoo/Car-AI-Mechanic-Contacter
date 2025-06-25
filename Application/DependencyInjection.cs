@@ -1,12 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
+﻿using FluentValidation;
 using MediatR;
-
+using Microsoft.Extensions.DependencyInjection;
 using Application.Common.Validator;
-
-using FluentValidation;
-
-
 
 namespace Application
 {
@@ -14,25 +9,24 @@ namespace Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-
             var assembly = typeof(DependencyInjection).Assembly;
 
+            // Registrera AutoMapper-profiler i Application
             services.AddAutoMapper(assembly);
 
+            // Registrera FluentValidation validators i Application
             services.AddValidatorsFromAssembly(assembly);
 
-            services.AddTransient(                              // This runs validator with MediaTR
-              typeof(IPipelineBehavior<,>),
-              typeof(ValidatorBehavior<,>)
-          );
+            // Kör validatorer via MediatR pipeline
+            services.AddTransient(
+                typeof(IPipelineBehavior<,>),
+                typeof(ValidatorBehavior<,>)
+            );
 
-
-
-
-       
+            // Registrera MediatR-handlers från Application
             services.AddMediatR(configuration =>
-            configuration.RegisterServicesFromAssembly(assembly));
-            services.AddAutoMapper(assembly);
+                configuration.RegisterServicesFromAssembly(assembly));
+
             return services;
         }
     }
