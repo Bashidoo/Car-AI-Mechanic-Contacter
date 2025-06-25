@@ -6,5 +6,6 @@ namespace Application.Interfaces.CarIssueInterface
     {
         Task<CarIssue?> GetByIdAsync(int id, CancellationToken cancellationToken);
         Task UpdateAsync(CarIssue carIssue, CancellationToken cancellationToken);
+        Task DeleteAsync(CarIssue carIssue, CancellationToken cancellationToken);
     }
 }

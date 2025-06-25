@@ -25,5 +25,11 @@ namespace Infrastructure.Repositories
             _context.CarIssues.Update(carIssue);
             await _context.SaveChangesAsync(cancellationToken);
         }
+
+        public async Task DeleteAsync(CarIssue carIssue, CancellationToken cancellationToken)
+        {
+            _context.CarIssues.Remove(carIssue);
+            await _context.SaveChangesAsync(cancellationToken);
+        }
     }
 }
