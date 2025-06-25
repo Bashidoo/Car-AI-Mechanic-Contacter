@@ -1,12 +1,9 @@
 ﻿using Infrastructure;
-using MediatR;
 using Application;
-using Application.Cars.Handlers.QueryHandler;
-using Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
+using CarDealership.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 using CarDealership.Domain.Entities;
-using CarDealership.Infrastructure.Persistence;
+using Infrastructure.Data;
 
 namespace API
 {
@@ -16,42 +13,33 @@ namespace API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add config from appsettings.json
             var configuration = builder.Configuration;
 
-            // Add DbContext
-            builder.Services.AddDbContext<CarDealershipDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
-            // Add Identity-hasher
+            // Identity-hasher
             builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
-            // Add custom dependencies
+            // 🔧 Registrera alla dependencies
             builder.Services.AddInfrastructure(configuration);
+            builder.Services.AddApplication();
 
-            // Add MediatR
-            builder.Services.AddMediatR(cfg =>
-            {
-                cfg.RegisterServicesFromAssembly(typeof(GetAllCarsQueryHandler).Assembly);
-            });
-
+            // Swagger, controllers, endpoints
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
-            // Swagger
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
+            app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();
 
-            // Run DB seeder (Bogus)
+            // Seed testdata
             using (var scope = app.Services.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<CarDealershipDbContext>();
