@@ -28,8 +28,9 @@ namespace Infrastructure
             // Interface till DbContext för testbarhet
             services.AddScoped<IAppDbContext, CarDealershipDbContext>();
 
-            // 🔧 Lägg till CarIssueRepository för MediatR-handlers
+            // 🔧 Repository för MediatR-handlers
             services.AddScoped<ICarIssueRepository, CarIssueRepository>();
+
 
             return services;
         }

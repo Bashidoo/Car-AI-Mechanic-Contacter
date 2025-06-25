@@ -69,5 +69,12 @@ namespace API.Controllers
 
             return NoContent(); // 204 No Content
         }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _mediator.Send(new DeleteCarIssueCommand { CarIssueId = id });
+            return result ? Ok() : NotFound();
+        }
+
     }
 }

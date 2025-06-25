@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
     
-    //TODO: UpdateCar
     //TODO: DeleteCar
     [ApiController]
     [Route("api/[controller]")]
