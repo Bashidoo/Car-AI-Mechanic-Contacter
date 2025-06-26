@@ -13,39 +13,63 @@ using FluentValidation.AspNetCore;
 using MediatR;
 using System.Text;
 using FluentValidation;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1) Controllers & Swagger
+// 1) Controllers
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
-// 2) EF Core — point to your SQL Express instance in appsettings.json
+// 2) Swagger with JWT support
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "CarDealership API", Version = "v1" });
+
+    // Define the Bearer auth scheme
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Enter ‘Bearer {your JWT token}’"
+    });
+
+    // Require Bearer auth for all operations
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+    {
+        new OpenApiSecurityScheme {
+            Reference = new OpenApiReference {
+                Type = ReferenceType.SecurityScheme,
+                Id   = "Bearer"
+            }
+        },
+        Array.Empty<string>()
+    }});
+});
+
+// 3) EF Core — SQL Express via appsettings.json
 builder.Services.AddDbContext<CarDealershipDbContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
-// 3) Password hashing for User
+// 4) Password hashing for User
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
-// 4) MediatR + FluentValidation
+// 5) MediatR + FluentValidation
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommand).Assembly));
 builder.Services.AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters()
                 .AddValidatorsFromAssemblyContaining<RegisterUserCommand>();
 
-// 5) Your interfaces → Infrastructure implementations
-builder.Services.AddScoped<
-    CarDealership.Application.Interfaces.Userinterface.IUserRepository,
-    CarDealership.Infrastructure.Repositories.UserRepository>();
+// 6) App interfaces → Infrastructure implementations
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
-builder.Services.AddScoped<
-    CarDealership.Application.Interfaces.Userinterface.IJwtTokenService,
-    CarDealership.Infrastructure.Security.JwtTokenService>();
-
-// 6) JWT Bearer Authentication
-var jwt = builder.Configuration.GetSection("Jwt");
+// 7) JWT Bearer Authentication
+var jwtSection = builder.Configuration.GetSection("Jwt");
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -61,21 +85,23 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = jwt["Issuer"],
-        ValidAudience = jwt["Audience"],
+        ValidIssuer = jwtSection["Issuer"],
+        ValidAudience = jwtSection["Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(jwt["Key"]))
+                                      Encoding.UTF8.GetBytes(jwtSection["Key"]))
     };
 });
 
 var app = builder.Build();
 
-// 7) Middleware pipeline
+// 8) Middleware pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();

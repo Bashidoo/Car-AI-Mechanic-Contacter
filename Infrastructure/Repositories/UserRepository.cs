@@ -1,8 +1,9 @@
 ﻿using CarDealership.Application.Interfaces.Userinterface;
 using CarDealership.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 using CarDealership.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CarDealership.Infrastructure.Repositories
 {
@@ -17,6 +18,9 @@ namespace CarDealership.Infrastructure.Repositories
 
         public Task AddAsync(User user) =>
             _ctx.Users.AddAsync(user).AsTask();
+
+        public Task SaveChangesAsync(CancellationToken cancellationToken) =>
+            _ctx.SaveChangesAsync(cancellationToken);  // ← new
 
         public Task<User> GetByEmailAsync(string email) =>
             _ctx.Users.SingleOrDefaultAsync(u => u.Email == email);

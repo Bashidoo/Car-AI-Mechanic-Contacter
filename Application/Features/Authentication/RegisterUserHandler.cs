@@ -35,20 +35,28 @@ namespace CarDealership.Application.Features.Authentication
                     Errors = new[] { "Email already in use." }
                 };
 
-            var user = new User(
+            // 1) Create a temporary user just so the hasher has a TUser instance.
+            var tempUser = new User(
                 cmd.FirstName, cmd.LastName, cmd.Email,
                 cmd.Mobile, cmd.Address, cmd.Postcode,
                 cmd.City, passwordHash: string.Empty);
 
-            var hashed = _hasher.HashPassword(user, cmd.Password);
-            user = new User(
+            // 2) Hash the password
+            var hashed = _hasher.HashPassword(tempUser, cmd.Password);
+
+            // 3) Create the real user with the hashed password via constructor
+            var user = new User(
                 cmd.FirstName, cmd.LastName, cmd.Email,
                 cmd.Mobile, cmd.Address, cmd.Postcode,
-                cmd.City, hashed);
+                cmd.City, passwordHash: hashed);
 
+            // 4) Persist to the database
             await _repo.AddAsync(user);
+            await _repo.SaveChangesAsync(ct);
 
+            // 5) Generate a JWT for the newly‐created user
             var token = _jwt.GenerateToken(user);
+
             return new RegisterResultDto
             {
                 Success = true,
