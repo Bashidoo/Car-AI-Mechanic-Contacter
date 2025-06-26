@@ -67,6 +67,83 @@ namespace Infrastructure.Infrastructure.Persistence.Migrations
 
                     b.ToTable("Users");
                 });
+
+            modelBuilder.Entity("Domain.Models.Car", b =>
+                {
+                    b.Property<int>("CarId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarId"));
+
+                    b.Property<string>("ImagePath")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("RegistrationNumber")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("CarId");
+
+                    b.ToTable("CarIssue");
+                });
+
+            modelBuilder.Entity("Domain.Models.CarIssue", b =>
+                {
+                    b.Property<int>("CarIssueId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarIssueId"));
+
+                    b.Property<string>("AIAnalysis")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(MAX)");
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("OptionalComment")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.HasKey("CarIssueId");
+
+                    b.HasIndex("CarId");
+
+                    b.ToTable("CarIssues");
+                });
+
+            modelBuilder.Entity("Domain.Models.CarIssue", b =>
+                {
+                    b.HasOne("Domain.Models.Car", "Car")
+                        .WithMany("Issues")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+                });
+
+            modelBuilder.Entity("Domain.Models.Car", b =>
+                {
+                    b.Navigation("Issues");
+                });
 #pragma warning restore 612, 618
         }
     }

@@ -1,25 +1,33 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-public class Car
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Domain.Models
 {
-    [Key]
-    public int CarId { get; set; }
+    public class Car
+    {
+        [Key]
+        public int CarId { get; set; }
 
-    [Required, MaxLength(100)]
-    [Column(TypeName = "nvarchar(100)")]
-    public string Model { get; set; }
+        [Required, MaxLength(100)]
+        [Column(TypeName = "nvarchar(100)")]
+        public string Model { get; set; }
 
-    [Required, MaxLength(1000)]
-    [Column(TypeName = "nvarchar(1000)")]
-    public string Description { get; set; }
+        [MaxLength(255)]
+        [Column(TypeName = "nvarchar(255)")]
+        public string? RegistrationNumber { get; set; }
 
-    [MaxLength(255)]
-    [Column(TypeName = "nvarchar(255)")]
-    public string ImagePath { get; set; }
+        [MaxLength(255)]
+        [Column(TypeName = "nvarchar(255)")]
+        public string? ImagePath { get; set; }
 
-    [Column(TypeName = "nvarchar(MAX)")]
-    public string AIAnalysis { get; set; }
+        // Navigation property to related car issues
+        public ICollection<CarIssue> Issues { get; set; }
 
-    public ICollection<DealershipResponse> Responses { get; set; }
+        // Navigation property to related dealership responses (om du har det)
+        //public ICollection<DealershipResponse> Responses { get; set; }
+    }
 }
+

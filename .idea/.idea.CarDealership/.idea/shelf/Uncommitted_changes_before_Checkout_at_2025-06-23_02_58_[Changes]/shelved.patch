@@ -1,0 +1,136 @@
+Index: API/Controllers/CarIssuesController.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using Microsoft.AspNetCore.Mvc;\r\n\r\nnamespace API.Controllers\r\n{\r\n    //Todo: GetallCarIssues\r\n    //Todo: GetCarIssueById\r\n    //Todo: CreateCarIssue\r\n    //Todo: UpdateCarIssue\r\n    //Todo: DeleteCarIssue\r\n    [ApiController]\r\n    [Route(\"api/[controller]\")]\r\n    public class CarIssuesController : ControllerBase\r\n    {\r\n        private readonly IMediator _mediator;\r\n\r\n        public CarIssuesController(IMediator mediator)\r\n        {\r\n            _mediator = mediator;\r\n        }\r\n\r\n        [HttpGet]\r\n        public async Task<IActionResult> GetAll()\r\n        {\r\n            var result = await _mediator.Send(new GetAllCarIssuesQuery());\r\n            return Ok(result);\r\n        }\r\n    }\r\n}
+===================================================================
+diff --git a/API/Controllers/CarIssuesController.cs b/API/Controllers/CarIssuesController.cs
+--- a/API/Controllers/CarIssuesController.cs	(revision 518353fedc1c1f23dd6ee249678a796548ed019f)
++++ b/API/Controllers/CarIssuesController.cs	(date 1750638718949)
+@@ -1,3 +1,5 @@
++using Application.CarIssues.Queries;
++using MediatR;
+ using Microsoft.AspNetCore.Mvc;
+ 
+ namespace API.Controllers
+@@ -18,7 +20,7 @@
+             _mediator = mediator;
+         }
+ 
+-        [HttpGet]
++        [HttpGet("GetAllCarIssues")]
+         public async Task<IActionResult> GetAll()
+         {
+             var result = await _mediator.Send(new GetAllCarIssuesQuery());
+Index: Domain/Models/CarIssue.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System.ComponentModel.DataAnnotations;\r\nusing System.ComponentModel.DataAnnotations.Schema;\r\n\r\nnamespace Domain.Models\r\n{\r\n    public class CarIssues\r\n    {\r\n        [Key]\r\n        public int CarIssueId { get; set; }\r\n\r\n        [Required, MaxLength(1000)]\r\n        [Column(TypeName = \"nvarchar(1000)\")]\r\n        public string Description { get; set; }\r\n\r\n        [MaxLength(500)]\r\n        [Column(TypeName = \"nvarchar(500)\")]\r\n        public string OptionalComment { get; set; }\r\n\r\n        [Column(TypeName = \"nvarchar(MAX)\")]\r\n        public string AIAnalysis { get; set; }\r\n\r\n        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;\r\n\r\n        // Foreign key\r\n        public int CarId { get; set; }\r\n\r\n        [ForeignKey(nameof(CarId))]\r\n        public Car Car { get; set; }\r\n    }\r\n}
+===================================================================
+diff --git a/Domain/Models/CarIssue.cs b/Domain/Models/CarIssue.cs
+--- a/Domain/Models/CarIssue.cs	(revision 518353fedc1c1f23dd6ee249678a796548ed019f)
++++ b/Domain/Models/CarIssue.cs	(date 1750639920544)
+@@ -2,8 +2,11 @@
+ using System.ComponentModel.DataAnnotations.Schema;
+ 
+ namespace Domain.Models
+-{
+-    public class CarIssues
++{    
++    
++    [Table("CarIssue")] // 👈 detta löser problemet
++
++    public class CarIssue
+     {
+         [Key]
+         public int CarIssueId { get; set; }
+Index: Application/CarIssues/Dtos/CarIssueDto.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>namespace Application.CarIssues.Dtos\r\n{\r\n    public class CarIssueDto\r\n    {\r\n        \r\n    }\r\n}
+===================================================================
+diff --git a/Application/CarIssues/Dtos/CarIssueDto.cs b/Application/CarIssues/Dtos/CarIssueDto.cs
+--- a/Application/CarIssues/Dtos/CarIssueDto.cs	(revision 518353fedc1c1f23dd6ee249678a796548ed019f)
++++ b/Application/CarIssues/Dtos/CarIssueDto.cs	(date 1750637520815)
+@@ -2,6 +2,11 @@
+ {
+     public class CarIssueDto
+     {
+-        
++        public int CarIssueId { get; set; }
++        public string Description { get; set; }
++        public string? OptionalComment { get; set; }
++        public string? AIAnalysis { get; set; }
++        public DateTime CreatedAt { get; set; }
++        public int CarId { get; set; }
+     }
+ }
+\ No newline at end of file
+Index: Application/CarIssues/Queries/GetAllCarIssuesQuery.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>namespace Application.CarIssues.Queries\r\n{\r\n    public class GetAllCarIssuesQuery\r\n    {\r\n        \r\n    }\r\n}
+===================================================================
+diff --git a/Application/CarIssues/Queries/GetAllCarIssuesQuery.cs b/Application/CarIssues/Queries/GetAllCarIssuesQuery.cs
+--- a/Application/CarIssues/Queries/GetAllCarIssuesQuery.cs	(revision 518353fedc1c1f23dd6ee249678a796548ed019f)
++++ b/Application/CarIssues/Queries/GetAllCarIssuesQuery.cs	(date 1750637602030)
+@@ -1,7 +1,9 @@
++using Application.CarIssues.Dtos;
++using MediatR;
++
+ namespace Application.CarIssues.Queries
+ {
+-    public class GetAllCarIssuesQuery
++    public class GetAllCarIssuesQuery : IRequest<List<CarIssueDto>>
+     {
+-        
+     }
+ }
+\ No newline at end of file
+Index: Application/CarIssues/Handlers/GetAllCarIssuesQueryHandler.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>namespace Application.CarIssues.Handlers\r\n{\r\n    public class GetAllCarIssuesQueryHandler\r\n    {\r\n        \r\n    }\r\n}
+===================================================================
+diff --git a/Application/CarIssues/Handlers/GetAllCarIssuesQueryHandler.cs b/Application/CarIssues/Handlers/GetAllCarIssuesQueryHandler.cs
+--- a/Application/CarIssues/Handlers/GetAllCarIssuesQueryHandler.cs	(revision 518353fedc1c1f23dd6ee249678a796548ed019f)
++++ b/Application/CarIssues/Handlers/GetAllCarIssuesQueryHandler.cs	(date 1750638040214)
+@@ -1,7 +1,37 @@
++using Application.CarIssues.Dtos;
++using Application.CarIssues.Queries;
++using Application.Interfaces.IAppDbContext;
++using Microsoft.EntityFrameworkCore; // för .ToListAsync()
++using Domain.Models; // ← viktig för att lösa symbolen 'CarIssues'
++using MediatR;
++
+ namespace Application.CarIssues.Handlers
+ {
+-    public class GetAllCarIssuesQueryHandler
++    public class GetAllCarIssuesQueryHandler : IRequestHandler<GetAllCarIssuesQuery, List<CarIssueDto>>
+     {
++        private readonly IAppDbContext _context;
++        
++        public GetAllCarIssuesQueryHandler(IAppDbContext context)
++        {
++            _context = context;
++        }
++        
++        public async Task<List<CarIssueDto>> Handle(GetAllCarIssuesQuery request, CancellationToken cancellationToken)
++        {
++            var carIssues = await _context.CarIssues
++                .Select(ci => new CarIssueDto
++                {
++                    CarIssueId = ci.CarIssueId,
++                    Description = ci.Description,
++                    OptionalComment = ci.OptionalComment,
++                    AIAnalysis = ci.AIAnalysis,
++                    CreatedAt = ci.CreatedAt,
++                    CarId = ci.CarId
++                })
++                .ToListAsync(cancellationToken);
++
++            return carIssues;
++        }
+         
+     }
+ }
+\ No newline at end of file
