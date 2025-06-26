@@ -39,15 +39,16 @@ builder.Services.AddSwaggerGen(c =>
 
     // Require Bearer auth for all operations
     c.AddSecurityRequirement(new OpenApiSecurityRequirement {
-    {
-        new OpenApiSecurityScheme {
-            Reference = new OpenApiReference {
-                Type = ReferenceType.SecurityScheme,
-                Id   = "Bearer"
-            }
-        },
-        Array.Empty<string>()
-    }});
+        {
+            new OpenApiSecurityScheme {
+                Reference = new OpenApiReference {
+                    Type = ReferenceType.SecurityScheme,
+                    Id   = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
 });
 
 // 3) EF Core — SQL Express via appsettings.json
