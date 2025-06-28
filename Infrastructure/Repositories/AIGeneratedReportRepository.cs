@@ -1,4 +1,4 @@
-﻿using Application.Common.Results;
+﻿/*using Application.Common.Results;
 using Application.Interfaces.AIGeneratedReportInterface;
 
 using Domain.Models;
@@ -65,3 +65,4 @@ namespace Infrastructure.Repositories
     }
 
 }
+*/
