@@ -1,52 +1,105 @@
-﻿using Infrastructure;
-using Application;
-using CarDealership.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Identity;
 using CarDealership.Domain.Entities;
-using Infrastructure.Data;
+using CarDealership.Infrastructure.Persistence;
+using CarDealership.Infrastructure.Repositories;
+using CarDealership.Infrastructure.Security;
+using CarDealership.Application.Interfaces.Userinterface;
+using CarDealership.Application.Features.Authentication;
 
-namespace API
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
+using FluentValidation.AspNetCore;
+using MediatR;
+using System.Text;
+using FluentValidation;
+using Microsoft.OpenApi.Models;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// 1) Controllers
+builder.Services.AddControllers();
+
+// 2) Swagger with JWT support
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
 {
-    public class Program
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "CarDealership API", Version = "v1" });
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        public static void Main(string[] args)
+        Name         = "Authorization",
+        Type         = SecuritySchemeType.Http,
+        Scheme       = "bearer",
+        BearerFormat = "JWT",
+        In           = ParameterLocation.Header,
+        Description  = "Enter ‘Bearer {your JWT token}’"
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement {
         {
-            var builder = WebApplication.CreateBuilder(args);
-
-            var configuration = builder.Configuration;
-
-            // Identity-hasher
-            builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-
-            // 🔧 Registrera alla dependencies
-            builder.Services.AddInfrastructure(configuration);
-            builder.Services.AddApplication();
-
-            // Swagger, controllers, endpoints
-            builder.Services.AddControllers();
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            var app = builder.Build();
-
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseAuthorization();
-            app.MapControllers();
-
-            // Seed testdata
-            using (var scope = app.Services.CreateScope())
-            {
-                var dbContext = scope.ServiceProvider.GetRequiredService<CarDealershipDbContext>();
-                DataSeederCars.SeedAsync(dbContext).GetAwaiter().GetResult();
-            }
-
-            app.Run();
+            new OpenApiSecurityScheme {
+                Reference = new OpenApiReference {
+                    Type = ReferenceType.SecurityScheme,
+                    Id   = "Bearer"
+                }
+            },
+            Array.Empty<string>()
         }
-    }
+    });
+});
+
+// 3) EF Core — SQL Express via appsettings.json
+builder.Services.AddDbContext<CarDealershipDbContext>(opts =>
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+// 4) Password hashing
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
+// 5) MediatR + FluentValidation
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommand).Assembly));
+builder.Services.AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters()
+                .AddValidatorsFromAssemblyContaining<RegisterUserCommand>();
+
+// 6) Repositories & JWT service
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+
+// 7) JWT Bearer Authentication
+var jwtSection = builder.Configuration.GetSection("Jwt");
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme    = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(opts =>
+{
+    opts.RequireHttpsMetadata = true;
+    opts.SaveToken            = true;
+    opts.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer           = true,
+        ValidateAudience         = true,
+        ValidateLifetime         = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer              = jwtSection["Issuer"],
+        ValidAudience            = jwtSection["Audience"],
+        IssuerSigningKey         = new SymmetricSecurityKey(
+                                      Encoding.UTF8.GetBytes(jwtSection["Key"]))
+    };
+});
+
+var app = builder.Build();
+
+// 8) Middleware
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
+app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapControllers();
+app.Run();
