@@ -9,13 +9,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a56dd315-8def-41be-8ad6-8e533b5cf058" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Application/CarIssues/Validator/CreateCarIssueCommandValidator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CarDealership/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/CarIssues/Handlers/CreateCarIssueCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/CarIssues/Handlers/CreateCarIssueCommandHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/CarIssues/Handlers/GetAllCarIssuesQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/CarIssues/Handlers/GetAllCarIssuesQueryHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/CarIssues/Mapping/CarIssueMappingProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/CarIssues/Mapping/CarIssueMappingProfile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Interfaces/CarIssueInterface/ICarIssueRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Interfaces/CarIssueInterface/ICarIssueRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/Repositories/CarIssueRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/Repositories/CarIssueRepository.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
