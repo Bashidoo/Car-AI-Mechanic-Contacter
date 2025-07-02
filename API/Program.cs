@@ -53,8 +53,16 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddDbContext<CarDealershipDbContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
+           
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+           
+        
+            builder.Services.AddHttpClient();
+
 // 4) Password hashing
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
 
 // 5) MediatR + FluentValidation
 builder.Services.AddMediatR(cfg =>

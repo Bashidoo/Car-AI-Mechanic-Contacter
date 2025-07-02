@@ -16,6 +16,7 @@
     <Folder Include="Authorize\Commands\" />
     <Folder Include="Authorize\DTOs\" />
     <Folder Include="Authorize\Queries\" />
+    <Folder Include="Queries\AIGeneratedReport\Handlers\" />
     <Folder Include="Queries\DealershipResponse\Handlers\" />
     <Folder Include="Queries\EmailLog\Handlers\" />
     <Folder Include="Queries\User\Handlers\" />

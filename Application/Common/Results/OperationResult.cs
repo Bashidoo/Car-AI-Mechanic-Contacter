@@ -4,22 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application_Layer.Common.Results
+namespace Application.Common.Results
 {
     public class OperationResult
     {
-        public string Message { get; set; }
+        public string? Message { get; set; }
 
-        public bool IsSuccess { get; set; }
+        public bool Success { get; set; }
 
         public object? Data { get; set; }
 
-        public static OperationResult Success(string message)
+        public static OperationResult Ok(string message)
         {
             return new OperationResult
             {
                 Message = message,
-                IsSuccess = true,
+                Success = true,
                 Data = null
             };
         }
@@ -30,18 +30,29 @@ namespace Application_Layer.Common.Results
             {
                 Message = message,
                 Data = data,
-                IsSuccess = true
+                Success = true
             };
         }
 
-        public static OperationResult Failure(string message)
+        public static OperationResult Fail(string message)
         {
             return new OperationResult
             {
                 Message = message,
-                IsSuccess = false,
+                Success = false,
                 Data = null
             };
         }
     }
+    public class OperationResult<T> : OperationResult
+    {
+        public T? Data { get; set; }
+
+        public static OperationResult<T> Ok(T data, string? message = null) =>
+            new OperationResult<T> { Success = true, Data = data, Message = message };
+
+        public new static OperationResult<T> Fail(string message) =>
+            new OperationResult<T> { Success = false, Message = message };
+    }
+
 }
