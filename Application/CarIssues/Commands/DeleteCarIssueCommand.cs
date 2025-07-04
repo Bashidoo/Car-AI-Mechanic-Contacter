@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Application.CarIssues.Commands
+namespace CarDealership.Application.CarIssues.Commands
 {
     public class DeleteCarIssueCommand : IRequest<bool>
     {

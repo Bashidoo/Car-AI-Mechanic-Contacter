@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Application.Interfaces.IAppDbContext
+namespace CarDealership.Application.Interfaces.IAppDbContext
 {
-    using Domain.Models; // Viktigt!
+    using CarDealership.Domain.Models; // Viktigt!
 
     public interface IAppDbContext
     {

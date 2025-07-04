@@ -1,7 +1,7 @@
 using FluentValidation;
-using Application.CarIssues.Commands;
+using CarDealership.Application.CarIssues.Commands;
 
-namespace Application.CarIssues.Validators
+namespace CarDealership.Application.CarIssues.Validators
 {
     public class DeleteCarIssueCommandValidator : AbstractValidator<DeleteCarIssueCommand>
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Dtos.AIGeneratedReportDtos
+namespace CarDealership.Application.Dtos.AIGeneratedReportDtos
 {
     public class AIGeneratedReportCreateDto
     {

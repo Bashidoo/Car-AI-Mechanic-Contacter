@@ -1,12 +1,12 @@
-using Application.CarIssues.Commands;
-using Application.CarIssues.Dtos;
-using Application.Interfaces.CarIssueInterface;
+using CarDealership.Application.CarIssues.Commands;
+using CarDealership.Application.CarIssues.Dtos;
+using CarDealership.Application.Interfaces.CarIssueInterface;
 using AutoMapper;
-using Domain.Models;
+using CarDealership.Domain.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.CarIssues.Handlers
+namespace CarDealership.Application.CarIssues.Handlers
 {
     public class CreateCarIssueCommandHandler : IRequestHandler<CreateCarIssueCommand, CarIssueDto>
     {

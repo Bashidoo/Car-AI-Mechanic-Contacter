@@ -1,7 +1,7 @@
-using Application.CarIssues.Dtos;
+using CarDealership.Application.CarIssues.Dtos;
 using MediatR;
 
-namespace Application.CarIssues.Commands
+namespace CarDealership.Application.CarIssues.Commands
 {
     public class CreateCarIssueCommand : IRequest<CarIssueDto>
     {

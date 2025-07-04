@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Dealerships.DTOs
+namespace CarDealership.Application.Dealerships.DTOs
 {
     internal class DealershipDtocs
     {

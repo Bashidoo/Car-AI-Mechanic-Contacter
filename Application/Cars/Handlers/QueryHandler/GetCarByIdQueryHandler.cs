@@ -1,10 +1,10 @@
-using Application.Cars.Dtos;
-using Application.Cars.Queries;
-using Application.Interfaces.IAppDbContext;
+using CarDealership.Application.Cars.Dtos;
+using CarDealership.Application.Cars.Queries;
+using CarDealership.Application.Interfaces.IAppDbContext;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Cars.Handlers.QueryHandler
+namespace CarDealership.Application.Cars.Handlers.QueryHandler
 {
     public class GetCarsByIdQueryHandler : IRequestHandler<GetCarByIdQuery, CarDto>
     {
