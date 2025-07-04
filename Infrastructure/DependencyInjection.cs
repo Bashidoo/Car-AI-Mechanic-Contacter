@@ -1,10 +1,10 @@
-﻿// Infrastructure/DependencyInjection.cs
 
 using CarDealership.Application.Interfaces.IAppDbContext;          // IAppDbContext
 using CarDealership.Application.Interfaces.CarIssueInterface;      // ICarIssueRepository
 using CarDealership.Infrastructure.Persistence;      // CarDealershipDbContext
 using CarDealership.Infrastructure.Repositories;    // UserRepository, CarIssueRepository
 using CarDealership.Infrastructure.Security;        // JwtTokenService
+using CarDealership.Application.Interfaces.CarIssueInterface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +31,12 @@ namespace CarDealership.Infrastructure
 
             // 4) Expose the DbContext via an interface for testing
             services.AddScoped<IAppDbContext, CarDealershipDbContext>();
+
+
+            // 🔧 Repository för MediatR-handlers
+            services.AddScoped<ICarIssueRepository, CarIssueRepository>();
+            
+            services.AddScoped<ICarRepository, CarRepository>(); 
 
             return services;
         }

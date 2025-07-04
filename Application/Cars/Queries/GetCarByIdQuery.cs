@@ -8,13 +8,7 @@ using MediatR;
 
 namespace CarDealership.Application.Cars.Queries
 {
-    public class GetCarByIdQuery : IRequest<CarDto>
-    {
-        public int CarId { get; set; }
+    public record GetCarByIdQuery(int CarId) : IRequest<CarDto?>;
+  
 
-        public GetCarByIdQuery(int carId)
-        {
-            CarId = carId;
-        }
-    }
 }
