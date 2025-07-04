@@ -1,6 +1,6 @@
-using Domain.Models;
+using CarDealership.Domain.Models;
 
-namespace Application.Interfaces.CarIssueInterface
+namespace CarDealership.Application.Interfaces.CarIssueInterface
 {
     public interface ICarIssueRepository
     {

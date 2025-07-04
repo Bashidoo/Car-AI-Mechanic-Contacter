@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Application.Cars.Commands;
-using Application.Cars.Dtos;
-using Application.Interfaces.IAppDbContext;
-using Domain.Models;
+using CarDealership.Application.Cars.Commands;
+using CarDealership.Application.Cars.Dtos;
+using CarDealership.Application.Interfaces.IAppDbContext;
+using CarDealership.Domain.Models;
 using MediatR;
 
-namespace Application.Cars.Handlers
+namespace CarDealership.Application.Cars.Handlers
 {
     public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand, CarDto>
     {

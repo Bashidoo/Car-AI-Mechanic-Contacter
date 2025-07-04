@@ -1,9 +1,9 @@
 ﻿using Bogus;
 using CarDealership.Infrastructure.Persistence;
-using Domain.Models;
+using CarDealership.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Data;
+namespace CarDealership.Infrastructure.Data;
 
 public static class DataSeederCars
 {

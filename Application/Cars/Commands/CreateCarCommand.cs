@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Application.Cars.Dtos;
+using CarDealership.Application.Cars.Dtos;
 using MediatR;
 
-namespace Application.Cars.Commands
+namespace CarDealership.Application.Cars.Commands
 {
     public class CreateCarCommand : IRequest<CarDto>
     {

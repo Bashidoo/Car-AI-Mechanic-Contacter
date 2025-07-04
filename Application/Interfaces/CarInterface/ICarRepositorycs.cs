@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Models;
 
-namespace Application.Interfaces.CarInterface
+namespace CarDealership.Application.Interfaces.CarInterface
 {
     //Todo: Implement the ICarRepository interface
     public interface ICarRepository

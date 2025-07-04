@@ -1,10 +1,10 @@
-using Application.CarIssues.Commands;
+using CarDealership.Application.CarIssues.Commands;
 using AutoMapper;
-using Domain.Models;
+using CarDealership.Domain.Models;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Org.BouncyCastle.Asn1.IsisMtt.X509;
 
-namespace Application.CarIssues.Mapping
+namespace CarDealership.Application.CarIssues.Mapping
 {
     public class CarIssueMappingProfile : Profile
     {

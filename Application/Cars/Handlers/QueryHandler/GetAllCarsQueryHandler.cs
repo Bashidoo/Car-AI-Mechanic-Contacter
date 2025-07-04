@@ -1,13 +1,15 @@
-﻿using Application.Cars.Dtos;
-using Application.Cars.Queries;
-using Application.Interfaces.CarInterface;
-using Application.Interfaces.IAppDbContext;
+
+﻿using CarDealership.Application.Cars.Dtos;
+using CarDealership.Application.Cars.Queries;
+using CarDealership.Application.Interfaces.IAppDbContext;
+using CarDealership.Application.Interfaces.IAppDbContext;
+
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Application.Cars.Handlers.QueryHandler;
-//Todo: handler ska prata med repository, inte direkt med context
+namespace CarDealership.Application.Cars.Handlers.QueryHandler;
+
 public class GetAllCarsQueryHandler : IRequestHandler<GetAllCarsQuery, List<CarDto>>
 {
     private readonly ICarRepository _repo;

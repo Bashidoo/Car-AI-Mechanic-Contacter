@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Dealerships.Queries
+namespace CarDealership.Application.Dealerships.Queries
 {
     internal class GetDealershipByIdQuery
     {

@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Infrastructure.Migrations
+namespace CarDealership.Infrastructure.Migrations
 {
     [DbContext(typeof(CarDealershipDbContext))]
-    [Migration("20250623004758_AddMissingCarColumns")]
-    partial class AddMissingCarColumns
+    [Migration("20250704010820_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,7 +71,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Domain.Models.Car", b =>
+            modelBuilder.Entity("CarDealership.Domain.Models.Car", b =>
                 {
                     b.Property<int>("CarId")
                         .ValueGeneratedOnAdd()
@@ -94,10 +94,10 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("CarId");
 
-                    b.ToTable("CarIssue");
+                    b.ToTable("Cars");
                 });
 
-            modelBuilder.Entity("Domain.Models.CarIssue", b =>
+            modelBuilder.Entity("CarDealership.Domain.Models.CarIssue", b =>
                 {
                     b.Property<int>("CarIssueId")
                         .ValueGeneratedOnAdd()
@@ -121,7 +121,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("OptionalComment")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
@@ -129,12 +128,12 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("CarIssues");
+                    b.ToTable("CarIssue");
                 });
 
-            modelBuilder.Entity("Domain.Models.CarIssue", b =>
+            modelBuilder.Entity("CarDealership.Domain.Models.CarIssue", b =>
                 {
-                    b.HasOne("Domain.Models.Car", "Car")
+                    b.HasOne("CarDealership.Domain.Models.Car", "Car")
                         .WithMany("Issues")
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -143,7 +142,7 @@ namespace Infrastructure.Migrations
                     b.Navigation("Car");
                 });
 
-            modelBuilder.Entity("Domain.Models.Car", b =>
+            modelBuilder.Entity("CarDealership.Domain.Models.Car", b =>
                 {
                     b.Navigation("Issues");
                 });

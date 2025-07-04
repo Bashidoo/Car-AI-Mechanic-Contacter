@@ -1,10 +1,10 @@
-using Application.Interfaces.CarIssueInterface;
-using Application.Interfaces.IAppDbContext;
+using CarDealership.Application.Interfaces.CarIssueInterface;
+using CarDealership.Application.Interfaces.IAppDbContext;
 using CarDealership.Infrastructure.Persistence;
-using Domain.Models;
+using CarDealership.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Repositories
+namespace CarDealership.Infrastructure.Repositories
 {
     public class CarIssueRepository : ICarIssueRepository
     {

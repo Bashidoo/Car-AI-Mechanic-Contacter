@@ -1,6 +1,7 @@
 using CarDealership.Domain.Entities;
 using CarDealership.Infrastructure.Persistence;
 using CarDealership.Infrastructure.Repositories;
+using CarDealership.Infrastructure;
 using CarDealership.Infrastructure.Security;
 using CarDealership.Application.Interfaces.Userinterface;
 using CarDealership.Application.Features.Authentication;

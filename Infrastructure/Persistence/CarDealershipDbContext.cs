@@ -1,6 +1,6 @@
-﻿using Application.Interfaces.IAppDbContext;
+﻿using CarDealership.Application.Interfaces.IAppDbContext;
 using CarDealership.Domain.Entities;
-using Domain.Models;
+using CarDealership.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarDealership.Infrastructure.Persistence

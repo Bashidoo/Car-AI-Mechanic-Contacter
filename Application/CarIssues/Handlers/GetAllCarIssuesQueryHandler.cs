@@ -1,11 +1,11 @@
-using Application.CarIssues.Dtos;
-using Application.CarIssues.Queries;
-using Application.Interfaces.CarIssueInterface;
+using CarDealership.Application.CarIssues.Dtos;
+using CarDealership.Application.CarIssues.Queries;
+using CarDealership.Application.Interfaces.CarIssueInterface;
 using AutoMapper;
-using Domain.Models;
+using CarDealership.Domain.Models;
 using MediatR;
 
-namespace Application.CarIssues.Handlers
+namespace CarDealership.Application.CarIssues.Handlers
 {
     public class GetAllCarIssuesQueryHandler : IRequestHandler<GetAllCarIssuesQuery, List<CarIssueDto>>
     {

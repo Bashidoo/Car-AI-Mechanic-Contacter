@@ -3,16 +3,16 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Infrastructure.Migrations
+namespace CarDealership.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddMissingCarColumns : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "CarIssue",
+                name: "Cars",
                 columns: table => new
                 {
                     CarId = table.Column<int>(type: "int", nullable: false)
@@ -23,7 +23,7 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CarIssue", x => x.CarId);
+                    table.PrimaryKey("PK_Cars", x => x.CarId);
                 });
 
             migrationBuilder.CreateTable(
@@ -46,31 +46,31 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CarIssues",
+                name: "CarIssue",
                 columns: table => new
                 {
                     CarIssueId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
-                    OptionalComment = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    OptionalComment = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     AIAnalysis = table.Column<string>(type: "nvarchar(MAX)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CarId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CarIssues", x => x.CarIssueId);
+                    table.PrimaryKey("PK_CarIssue", x => x.CarIssueId);
                     table.ForeignKey(
-                        name: "FK_CarIssues_CarIssue_CarId",
+                        name: "FK_CarIssue_Cars_CarId",
                         column: x => x.CarId,
-                        principalTable: "CarIssue",
+                        principalTable: "Cars",
                         principalColumn: "CarId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CarIssues_CarId",
-                table: "CarIssues",
+                name: "IX_CarIssue_CarId",
+                table: "CarIssue",
                 column: "CarId");
 
             migrationBuilder.CreateIndex(
@@ -84,13 +84,13 @@ namespace Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CarIssues");
+                name: "CarIssue");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "CarIssue");
+                name: "Cars");
         }
     }
 }

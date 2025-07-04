@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Cars.Dtos
+namespace CarDealership.Application.Cars.Dtos
 {
     public abstract class CarResponseDto
     {

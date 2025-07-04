@@ -1,9 +1,9 @@
-using Application.Cars.Commands;
-using Application.Cars.Dtos;
-using Application.Interfaces.IAppDbContext;
+using CarDealership.Application.Cars.Commands;
+using CarDealership.Application.Cars.Dtos;
+using CarDealership.Application.Interfaces.IAppDbContext;
 using MediatR;
 
-namespace Application.Cars.Handlers
+namespace CarDealership.Application.Cars.Handlers
 {
     public class UpdatePatchCarCommandHandler : IRequestHandler<UpdatePatchCarCommand, bool>
     {

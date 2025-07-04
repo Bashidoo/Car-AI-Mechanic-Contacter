@@ -1,5 +1,5 @@
-﻿using Application.Common.Results;
-using Application.Dtos.AIGeneratedReportDtos;
+﻿using CarDealership.Application.Common.Results;
+using CarDealership.Application.Dtos.AIGeneratedReportDtos;
 using Microsoft.AspNetCore.Mvc;
 
 using System.Text;
