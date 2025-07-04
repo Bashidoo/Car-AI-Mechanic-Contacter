@@ -1,4 +1,5 @@
-﻿using Application.Interfaces.CarIssueInterface;
+﻿using Application.Interfaces.CarInterface;
+using Application.Interfaces.CarIssueInterface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,6 +31,8 @@ namespace Infrastructure
 
             // 🔧 Repository för MediatR-handlers
             services.AddScoped<ICarIssueRepository, CarIssueRepository>();
+            
+            services.AddScoped<ICarRepository, CarRepository>(); 
 
 
             return services;
