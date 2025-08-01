@@ -1,0 +1,41 @@
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  background-color: #ffffff;
+ 
+}
+
+
+.start-login-wrapper {
+  width: 100%;
+  max-width: 40em;
+  position: relative;
+  z-index: 2;
+
+ 
+}
+
+
+
+.background-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.background-wheel {
+  position: absolute;
+  right: 0;
+  top: 15em;
+  width: 40em;
+  opacity: 0.4;
+}
+
