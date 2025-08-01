@@ -1,7 +1,7 @@
-using CarDealership.Application.CarIssues.Dtos;
+using Application.CarIssues.Dtos;
 using MediatR;
 
-namespace CarDealership.Application.CarIssues.Queries
+namespace Application.CarIssues.Queries
 {
     public class GetCarIssueByIdQuery : IRequest<CarIssueDto>
     {

@@ -1,42 +1,41 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<RootNamespace>CarDealership.Application</RootNamespace>
-	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<Compile Remove="Services\\**" />
-		<EmbeddedResource Remove="Services\\**" />
-		<None Remove="Services\\**" />
-	</ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="Services\**" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<Folder Include="Authorize\\Commands\\" />
-		<Folder Include="Authorize\\DTOs\\" />
-		<Folder Include="Authorize\\Queries\\" />
-		<Folder Include="Queries\\AIGeneratedReport\\Handlers\\" />
-		<Folder Include="Queries\\DealershipResponse\\Handlers\\" />
-		<Folder Include="Queries\\EmailLog\\Handlers\\" />
-		<Folder Include="Queries\\User\\Handlers\\" />
-	</ItemGroup>
+  <ItemGroup>
+    <Folder Include="Authorize\Commands\" />
+    <Folder Include="Authorize\DTOs\" />
+    <Folder Include="Authorize\Queries\" />
+    <Folder Include="Queries\AIGeneratedReport\Handlers\" />
+    <Folder Include="Queries\DealershipResponse\Handlers\" />
+    <Folder Include="Queries\EmailLog\Handlers\" />
+    <Folder Include="Queries\User\Handlers\" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="AutoMapper" Version="14.0.0" />
-		<PackageReference Include="FluentValidation" Version="12.0.0" />
-		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
-		<PackageReference Include="MailKit" Version="4.12.1" />
-		<PackageReference Include="MediatR" Version="12.5.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.17" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.6" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.6" />
-	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
+    <PackageReference Include="MailKit" Version="4.12.1" />
+    <PackageReference Include="MediatR" Version="12.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.17" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.6" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.6" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\Domain\Domain.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+  </ItemGroup>
 
 </Project>

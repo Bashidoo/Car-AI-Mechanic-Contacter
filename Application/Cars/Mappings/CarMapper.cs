@@ -1,7 +1,7 @@
-using CarDealership.Application.Cars.Commands;
-using CarDealership.Domain.Models;
+using Application.Cars.Commands;
+using Domain.Models;
 
-namespace CarDealership.Application.Cars.Mappings
+namespace Application.Cars.Mappings
 {
     public static class CarMapper
     {

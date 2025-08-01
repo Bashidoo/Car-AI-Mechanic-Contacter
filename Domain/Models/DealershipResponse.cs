@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using CarDealership.Domain.Models;
+using Domain.Models;
 
 public class DealershipResponse
 {

@@ -1,4 +1,4 @@
-namespace CarDealership.Application.CarIssues.Dtos
+namespace Application.CarIssues.Dtos
 {
     public class CarIssueDto
     {

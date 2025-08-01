@@ -4,13 +4,17 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<RootNamespace>CarDealership.Infrastructure</RootNamespace>
 	</PropertyGroup>
 
+	<!-- Remove these lines completely -->
+	<!-- <Compile Remove="\**" /> -->
+	<!-- <EmbeddedResource Remove="Migrations\**" /> -->
+	<!-- <None Remove="Migrations\**" /> -->
 
 	<ItemGroup>
 		<Folder Include="Helpers\" />
 		<Folder Include="Extensions\" />
+		<Folder Include="Infrastructure\Persistence\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -26,12 +30,8 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-	</ItemGroup>
-
-	<!-- ConfigurationBuilder support -->
-	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>

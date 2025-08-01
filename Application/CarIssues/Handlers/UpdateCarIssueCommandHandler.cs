@@ -1,9 +1,9 @@
-using CarDealership.Application.CarIssues.Commands;
-using CarDealership.Application.Interfaces.CarIssueInterface;
+using Application.CarIssues.Commands;
+using Application.Interfaces.CarIssueInterface;
 using AutoMapper;
 using MediatR;
 
-namespace CarDealership.Application.CarIssues.Handlers
+namespace Application.CarIssues.Handlers
 {
     public class UpdateCarIssueCommandHandler : IRequestHandler<UpdateCarIssueCommand, bool>
     {

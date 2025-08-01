@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace CarDealership.Application.Cars.Commands
+namespace Application.Cars.Commands
 {
     public class UpdatePatchCarCommand : IRequest<bool>
     {

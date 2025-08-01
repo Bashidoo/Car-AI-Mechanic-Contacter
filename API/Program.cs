@@ -1,7 +1,6 @@
 using CarDealership.Domain.Entities;
 using CarDealership.Infrastructure.Persistence;
 using CarDealership.Infrastructure.Repositories;
-using CarDealership.Infrastructure;
 using CarDealership.Infrastructure.Security;
 using CarDealership.Application.Interfaces.Userinterface;
 using CarDealership.Application.Features.Authentication;
@@ -52,7 +51,8 @@ builder.Services.AddSwaggerGen(c =>
 
 // 3) EF Core — SQL Express via appsettings.json
 builder.Services.AddDbContext<CarDealershipDbContext>(opts =>
-    opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")
+    ));
 
 
            

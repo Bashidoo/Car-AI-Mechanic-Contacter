@@ -1,5 +1,5 @@
-﻿using CarDealership.Domain.Models;
-using CarDealership.Application.Common.Results;
+﻿using Domain.Models;
+using Application.Common.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace CarDealership.Application.Interfaces.AIGeneratedReportInterface
+namespace Application.Interfaces.AIGeneratedReportInterface
 {
     public interface IAIGeneratedReportRepository
     {

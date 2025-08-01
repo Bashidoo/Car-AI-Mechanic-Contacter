@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarDealership.Application.Cars.Validator
+namespace Application.Cars.Validator
 {
     internal class CarDtoValidator
     {

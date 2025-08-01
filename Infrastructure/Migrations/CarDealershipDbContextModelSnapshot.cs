@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace CarDealership.Infrastructure.Migrations
+namespace Infrastructure.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(CarDealershipDbContext))]
     partial class CarDealershipDbContextModelSnapshot : ModelSnapshot
@@ -17,7 +17,7 @@ namespace CarDealership.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.6")
+                .HasAnnotation("ProductVersion", "8.0.18")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -68,7 +68,7 @@ namespace CarDealership.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("CarDealership.Domain.Models.Car", b =>
+            modelBuilder.Entity("Domain.Models.Car", b =>
                 {
                     b.Property<int>("CarId")
                         .ValueGeneratedOnAdd()
@@ -94,7 +94,7 @@ namespace CarDealership.Infrastructure.Migrations
                     b.ToTable("Cars");
                 });
 
-            modelBuilder.Entity("CarDealership.Domain.Models.CarIssue", b =>
+            modelBuilder.Entity("Domain.Models.CarIssue", b =>
                 {
                     b.Property<int>("CarIssueId")
                         .ValueGeneratedOnAdd()
@@ -128,9 +128,9 @@ namespace CarDealership.Infrastructure.Migrations
                     b.ToTable("CarIssue");
                 });
 
-            modelBuilder.Entity("CarDealership.Domain.Models.CarIssue", b =>
+            modelBuilder.Entity("Domain.Models.CarIssue", b =>
                 {
-                    b.HasOne("CarDealership.Domain.Models.Car", "Car")
+                    b.HasOne("Domain.Models.Car", "Car")
                         .WithMany("Issues")
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -139,7 +139,7 @@ namespace CarDealership.Infrastructure.Migrations
                     b.Navigation("Car");
                 });
 
-            modelBuilder.Entity("CarDealership.Domain.Models.Car", b =>
+            modelBuilder.Entity("Domain.Models.Car", b =>
                 {
                     b.Navigation("Issues");
                 });

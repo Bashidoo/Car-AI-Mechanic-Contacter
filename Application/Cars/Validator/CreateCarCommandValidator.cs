@@ -1,7 +1,7 @@
-using CarDealership.Application.Cars.Commands;
+using Application.Cars.Commands;
 using FluentValidation;
 
-namespace CarDealership.Application.Cars.Validator
+namespace Application.Cars.Validator
 {
     public class CreateCarCommandValidator : AbstractValidator<CreateCarCommand>
     {

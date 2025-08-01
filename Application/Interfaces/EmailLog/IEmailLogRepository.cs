@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarDealership.Application.Interfaces.EmailLog
+namespace Application.Interfaces.EmailLog
 {
     internal class IEmailLogRepository
     {

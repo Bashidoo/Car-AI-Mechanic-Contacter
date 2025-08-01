@@ -1,8 +1,8 @@
-using CarDealership.Application.CarIssues.Commands;
-using CarDealership.Application.Interfaces.CarIssueInterface;
+using Application.CarIssues.Commands;
+using Application.Interfaces.CarIssueInterface;
 using MediatR;
 
-namespace CarDealership.Application.CarIssues.Handlers
+namespace Application.CarIssues.Handlers
 {
     public class DeleteCarIssueCommandHandler : IRequestHandler<DeleteCarIssueCommand, bool>
     {

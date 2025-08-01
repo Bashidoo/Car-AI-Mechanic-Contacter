@@ -1,42 +1,36 @@
-
-using CarDealership.Application.Interfaces.IAppDbContext;          // IAppDbContext
-using CarDealership.Application.Interfaces.CarIssueInterface;      // ICarIssueRepository
-using CarDealership.Infrastructure.Persistence;      // CarDealershipDbContext
-using CarDealership.Infrastructure.Repositories;    // UserRepository, CarIssueRepository
-using CarDealership.Infrastructure.Security;        // JwtTokenService
-using CarDealership.Application.Interfaces.CarIssueInterface;
+﻿using Application.Interfaces.CarIssueInterface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using CarDealership.Infrastructure.Persistence;
+using CarDealership.Infrastructure.Repositories;
+using CarDealership.Infrastructure.Security;
+using Application.Interfaces.IAppDbContext;
 using CarDealership.Application.Interfaces.Userinterface;
+using Infrastructure.Repositories; 
 
-namespace CarDealership.Infrastructure
+namespace Infrastructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructure(
-            this IServiceCollection services,
-            IConfiguration configuration)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            // 1) EF Core DbContext
-            services.AddDbContext<CarDealershipDbContext>(opts =>
-                opts.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            // Registrera DbContext
+            services.AddDbContext<CarDealershipDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-            // 2) Repositories
+            // Repository för användare
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<ICarIssueRepository, CarIssueRepository>();
 
-            // 3) JWT token service
+            // JWT-tjänst
             services.AddScoped<IJwtTokenService, JwtTokenService>();
 
-            // 4) Expose the DbContext via an interface for testing
+            // Interface till DbContext för testbarhet
             services.AddScoped<IAppDbContext, CarDealershipDbContext>();
-
 
             // 🔧 Repository för MediatR-handlers
             services.AddScoped<ICarIssueRepository, CarIssueRepository>();
-            
-            services.AddScoped<ICarRepository, CarRepository>(); 
+
 
             return services;
         }

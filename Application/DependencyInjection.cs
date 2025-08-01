@@ -1,5 +1,5 @@
-﻿using CarDealership.Application.CarIssues.Commands;
-using CarDealership.Application.CarIssues.Validators;
+﻿using Application.CarIssues.Commands;
+using Application.CarIssues.Validators;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

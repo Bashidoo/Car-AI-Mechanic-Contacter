@@ -1,31 +1,25 @@
-
-﻿using CarDealership.Application.Cars.Dtos;
-using CarDealership.Application.Cars.Queries;
-using CarDealership.Application.Interfaces.IAppDbContext;
-using CarDealership.Application.Interfaces.IAppDbContext;
-
+﻿using Application.Cars.Dtos;
+using Application.Cars.Queries;
+using Application.Interfaces.IAppDbContext;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace CarDealership.Application.Cars.Handlers.QueryHandler;
+namespace Application.Cars.Handlers.QueryHandler;
 
 public class GetAllCarsQueryHandler : IRequestHandler<GetAllCarsQuery, List<CarDto>>
 {
-    private readonly ICarRepository _repo;
+    private readonly IAppDbContext _context;
 
-    public GetAllCarsQueryHandler(ICarRepository repo)
+    public GetAllCarsQueryHandler(IAppDbContext context)
     {
-        _repo = repo;
+        _context = context;
     }
-    
 
   
     public async Task<List<CarDto>> Handle(GetAllCarsQuery request, CancellationToken cancellationToken)
     {
-        var cars = await _repo.GetAllAsync(cancellationToken);        // <-- rätt sätt att hämta data
-
-        return cars
+        return await _context.Cars
             .Select(car => new CarDto
             {
                 CarId = car.CarId,
@@ -33,7 +27,7 @@ public class GetAllCarsQueryHandler : IRequestHandler<GetAllCarsQuery, List<CarD
                 RegistrationNumber = car.RegistrationNumber,
                 ImagePath = car.ImagePath ?? "placeholder.jpg" // skydda mot null
             })
-            .ToList();
+            .ToListAsync(cancellationToken);
     }
     
 }

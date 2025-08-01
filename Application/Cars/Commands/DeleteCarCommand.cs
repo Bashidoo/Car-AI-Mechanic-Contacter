@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MediatR;
 
-namespace CarDealership.Application.Cars.Commands
+namespace Application.Cars.Commands
 {
     public class DeleteCarCommand : IRequest<bool>
     {

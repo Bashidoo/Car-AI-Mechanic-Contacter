@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarDealership.Application.Interfaces.DealershipResponse
+namespace Application.Interfaces.DealershipResponse
 {
     internal class IDealershipResponseRepository
     {

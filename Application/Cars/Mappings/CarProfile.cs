@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarDealership.Application.Cars.Mappings
+namespace Application.Cars.Mappings
 {
     internal class CarProfile
     {

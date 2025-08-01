@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CarDealership.Application.Cars.Commands;
-using CarDealership.Application.Cars.Dtos;
-using CarDealership.Application.Cars.Mappings;
-using CarDealership.Application.Interfaces.IAppDbContext;
+using Application.Cars.Commands;
+using Application.Cars.Dtos;
+using Application.Cars.Mappings;
+using Application.Interfaces.IAppDbContext;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace CarDealership.Application.Cars.Handlers
+namespace Application.Cars.Handlers
 {
     public class UpdateCarCommandHandler : IRequestHandler< UpdateCarCommand, CarDto>
     {

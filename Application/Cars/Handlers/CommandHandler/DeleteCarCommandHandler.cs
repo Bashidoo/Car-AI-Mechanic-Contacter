@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CarDealership.Application.Cars.Commands;
-using CarDealership.Application.Interfaces.IAppDbContext;
+using Application.Cars.Commands;
+using Application.Interfaces.IAppDbContext;
 using MediatR;
 
-namespace CarDealership.Application.Cars.Handlers
+namespace Application.Cars.Handlers
 {
     public class DeleteCarCommandHandler : IRequestHandler<DeleteCarCommand, bool>
     {

@@ -1,5 +1,5 @@
-using CarDealership.Application.CarIssues.Commands;
-using CarDealership.Application.CarIssues.Queries;
+using Application.CarIssues.Commands;
+using Application.CarIssues.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

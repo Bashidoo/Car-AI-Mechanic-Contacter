@@ -1,12 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CarDealership.Domain.Models
+namespace Domain.Models
 {
     [Table("CarIssue")]
     public class CarIssue
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // Explicit
         public int CarIssueId { get; set; }
 
         [Required, MaxLength(1000)]
@@ -18,7 +19,7 @@ namespace CarDealership.Domain.Models
         public string? OptionalComment { get; set; }
 
         [Column(TypeName = "nvarchar(MAX)")]
-        public string? AIAnalysis { get; set; }
+        public string AIAnalysis { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
