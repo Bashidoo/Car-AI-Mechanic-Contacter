@@ -6,21 +6,19 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
-	<!-- Remove these lines completely -->
-	<!-- <Compile Remove="\**" /> -->
-	<!-- <EmbeddedResource Remove="Migrations\**" /> -->
-	<!-- <None Remove="Migrations\**" /> -->
-
 	<ItemGroup>
 		<Folder Include="Helpers\" />
 		<Folder Include="Extensions\" />
-		<Folder Include="Infrastructure\Persistence\" />
+		<Folder Include="Persistence\" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<!-- Third-party packages -->
 		<PackageReference Include="Bogus" Version="35.6.3" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.8" />
+
+		<!-- EF Core 8.0.17 Packages -->
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.17" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.17">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
@@ -30,8 +28,10 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+
+		<!-- Microsoft Extensions -->
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
