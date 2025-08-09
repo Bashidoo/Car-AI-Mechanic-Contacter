@@ -15,7 +15,13 @@ function LoginPage() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const API = import.meta.env.VITE_API_URL;
+  
 
+  // Debug
+  if (import.meta.env.DEV) {
+  console.log("API URL:", import.meta.env.VITE_API_URL);
+}
+  // Debug
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -37,7 +43,7 @@ function LoginPage() {
 
     // 2) call your API
     try {
-      const resp = await fetch(`${API}/auth/login`, {
+      const resp = await fetch(`${API}/Auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

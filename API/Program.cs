@@ -18,6 +18,14 @@ using Infrastructure;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder => builder
+   .WithOrigins("https://localhost:3000", "http://localhost:3000")
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials());
+});
 
 // 1) Controllers
 builder.Services.AddControllers();
@@ -106,12 +114,15 @@ builder.Services.AddApplication();
 
 var app = builder.Build();
 
+
 // 8) Middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
