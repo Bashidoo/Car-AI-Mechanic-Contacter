@@ -1,5 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
-
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
@@ -7,23 +6,26 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<!-- Validation -->
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
-		<PackageReference Include="MediatR" Version="12.5.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
 
-		<!-- EF Core 8.0.18 - all packages pinned to avoid EF9 conflicts -->
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.18" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="8.0.18" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="8.0.18" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.18" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.18" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.18">
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		<!-- MediatR - Latest stable for .NET 8 -->
+		<PackageReference Include="MediatR" Version="12.1.1" />
+
+		<!-- Authentication -->
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.4" />
+
+		<!-- EF Core - Latest patch for .NET 8 -->
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.6" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
 			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
 
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+		<!-- Swagger -->
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -31,5 +33,4 @@
 		<ProjectReference Include="..\Domain\Domain.csproj" />
 		<ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
 	</ItemGroup>
-
 </Project>

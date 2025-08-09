@@ -12,6 +12,7 @@ namespace CarDealership.Infrastructure.Persistence
         {
             // Ensure the base path is the Infrastructure folder
             var config = new ConfigurationBuilder()
+                
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false)
                 .Build();
