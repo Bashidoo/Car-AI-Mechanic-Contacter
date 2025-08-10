@@ -9,6 +9,7 @@ namespace Domain.Models
     public class Car
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CarId { get; set; }
 
         [Required, MaxLength(100)]
