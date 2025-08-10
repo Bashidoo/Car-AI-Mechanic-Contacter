@@ -53,7 +53,7 @@ namespace Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     OptionalComment = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    AIAnalysis = table.Column<string>(type: "nvarchar(MAX)", nullable: false),
+                    AIAnalysis = table.Column<string>(type: "nvarchar(MAX)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CarId = table.Column<int>(type: "int", nullable: false)
                 },

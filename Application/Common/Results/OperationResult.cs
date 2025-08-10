@@ -43,6 +43,17 @@ namespace Application.Common.Results
                 Data = null
             };
         }
+
+        public static OperationResult FailOBJ(string message, object? data)
+        {
+            return new OperationResult
+            {
+                Message = message,
+                Success = false,
+                Data = null
+            };
+        }
+
     }
     public class OperationResult<T> : OperationResult
     {

@@ -44,5 +44,10 @@ namespace Infrastructure.Repositories
             _context.CarIssues.Remove(carIssue);
             await _context.SaveChangesAsync(cancellationToken);
         }
+
+        public async Task<bool> CarExistsAsync(int carId, CancellationToken cancellationToken)
+        {
+            return await _context.Cars.AnyAsync(c => c.CarId == carId, cancellationToken);
+        }
     }
 }

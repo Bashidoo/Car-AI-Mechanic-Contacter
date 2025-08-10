@@ -103,7 +103,6 @@ namespace Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarIssueId"));
 
                     b.Property<string>("AIAnalysis")
-                        .IsRequired()
                         .HasColumnType("nvarchar(MAX)");
 
                     b.Property<int>("CarId")

@@ -2,6 +2,7 @@
 using CarDealership.Domain.Entities;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace CarDealership.Infrastructure.Persistence
 {
@@ -20,6 +21,10 @@ namespace CarDealership.Infrastructure.Persistence
             builder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();
+
+            builder.Entity<CarIssue>()
+        .Property(c => c.AIAnalysis)
+        .IsRequired(false);  // Explicitly make optional
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

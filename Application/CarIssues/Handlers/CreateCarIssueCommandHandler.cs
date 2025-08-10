@@ -1,15 +1,18 @@
 using Application.CarIssues.Commands;
 using Application.CarIssues.Dtos;
+using Application.Common.Results;
 using Application.Interfaces.CarIssueInterface;
 using AutoMapper;
 using Domain.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Application.CarIssues.Handlers
 {
     public class CreateCarIssueCommandHandler : IRequestHandler<CreateCarIssueCommand, CarIssueDto>
     {
+        
        private readonly IMapper _mapper;
        private readonly ICarIssueRepository _repository;
         public CreateCarIssueCommandHandler(IMapper mapper, ICarIssueRepository repository)
@@ -20,6 +23,16 @@ namespace Application.CarIssues.Handlers
 
         public async Task<CarIssueDto> Handle(CreateCarIssueCommand request, CancellationToken cancellationToken)
         {
+
+            if (!await _repository.CarExistsAsync(request.CarId, cancellationToken))
+            {
+                
+                
+                throw new Exception($"Car {request.CarId} doesn't exist");
+                
+            } 
+
+
             var carIssue = new CarIssue
             {
                 Description = request.Description,

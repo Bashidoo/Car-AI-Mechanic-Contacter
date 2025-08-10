@@ -7,7 +7,7 @@ namespace Application.Interfaces.CarIssueInterface
         Task<List<CarIssue>> GetAllAsync(CancellationToken cancellationToken);
         Task<CarIssue?> GetByIdAsync(int id, CancellationToken cancellationToken);
         Task CreateAsync(CarIssue carIssue, CancellationToken cancellationToken);
-
+        Task<bool>CarExistsAsync(int carId, CancellationToken cancellationToken);
         Task UpdateAsync(CarIssue carIssue, CancellationToken cancellationToken);
         Task DeleteAsync(CarIssue carIssue, CancellationToken cancellationToken);
 

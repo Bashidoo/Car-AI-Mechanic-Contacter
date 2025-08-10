@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(CarDealershipDbContext))]
-    [Migration("20250809034006_Initial")]
+    [Migration("20250810122926_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -106,7 +106,6 @@ namespace Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarIssueId"));
 
                     b.Property<string>("AIAnalysis")
-                        .IsRequired()
                         .HasColumnType("nvarchar(MAX)");
 
                     b.Property<int>("CarId")

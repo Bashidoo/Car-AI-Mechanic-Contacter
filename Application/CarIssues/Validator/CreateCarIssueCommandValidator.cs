@@ -16,5 +16,6 @@ namespace Application.CarIssues.Validator
                 .MaximumLength(1000).WithMessage("Optional comment must not exceed 1000 characters.")
                 .When(x => !string.IsNullOrEmpty(x.OptionalComment));
         }
+
     }
 }

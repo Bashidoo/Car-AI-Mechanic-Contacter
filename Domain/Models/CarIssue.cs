@@ -19,7 +19,7 @@ namespace Domain.Models
         public string? OptionalComment { get; set; }
 
         [Column(TypeName = "nvarchar(MAX)")]
-        public string AIAnalysis { get; set; }
+        public string? AIAnalysis { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
