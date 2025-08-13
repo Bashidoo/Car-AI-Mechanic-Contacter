@@ -49,15 +49,19 @@ function LoginPage() {
         body: JSON.stringify(formData),
       });
       const data = await resp.json();
-      if (!resp.ok) {
-        setErrors({ api: data.error || 'Fel e-post eller lösenord.' });
-        return;
-      }
 
-      // 3) store the JWT
-      localStorage.setItem('userToken', data.token);
-      // 4) redirect to home
-      navigate('/home');
+  // DEBUG: show exactly what the backend returned
+  console.log("Full login data:", data);
+
+  if (!resp.ok) {
+    setErrors({ api: data.error || 'Fel e-post eller lösenord.' });
+    return;
+  }
+
+  // 3) store the JWT
+  localStorage.setItem('userToken', data.token);
+  // 4) redirect to home
+  navigate('/home');
     } catch {
       setErrors({ api: 'Kunde inte logga in. Försök igen senare.' });
     }
