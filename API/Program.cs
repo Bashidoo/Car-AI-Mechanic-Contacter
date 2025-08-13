@@ -21,7 +21,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder => builder
-   .WithOrigins("https://localhost:3000", "http://localhost:3000")
+   .WithOrigins("https://localhost:3000", "http://localhost:3000","http://localhost:5173")
     .AllowAnyHeader()
     .AllowAnyMethod()
     .AllowCredentials());
