@@ -38,10 +38,10 @@ export const registerSchema = Joi.object({
     'string.empty': 'Postort krävs',
     'any.required': 'Postort krävs',
   }),
-  password: Joi.string().min(8).required().messages({
+  password: Joi.string().min(6).required().messages({
     'string.empty': 'Lösenord krävs',
     'any.required': 'Lösenord krävs',
-    'string.min': 'Lösenordet måste vara minst 8 tecken',
+    'string.min': 'Lösenordet måste vara minst 6 tecken',
   }),
   confirmPassword: Joi.string()
     .valid(Joi.ref('password'))
