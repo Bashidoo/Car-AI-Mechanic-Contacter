@@ -15,13 +15,12 @@ function LoginPage() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const API = import.meta.env.VITE_API_URL;
-  
 
   // Debug
   if (import.meta.env.DEV) {
-  console.log("API URL:", import.meta.env.VITE_API_URL);
-}
-  // Debug
+    console.log("API URL:", import.meta.env.VITE_API_URL);
+  }
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -30,7 +29,7 @@ function LoginPage() {
     e.preventDefault();
     setErrors({});
 
-    // 1) client-side validation
+    // 1) Client-side validation
     const { error } = loginSchema.validate(formData, { abortEarly: false });
     if (error) {
       const fieldErrors = {};
@@ -41,7 +40,7 @@ function LoginPage() {
       return;
     }
 
-    // 2) call your API
+    // 2) API call
     try {
       const resp = await fetch(`${API}/Auth/login`, {
         method: 'POST',
@@ -50,18 +49,20 @@ function LoginPage() {
       });
       const data = await resp.json();
 
-  // DEBUG: show exactly what the backend returned
-  console.log("Full login data:", data);
+      console.log("Full login data:", data);
 
-  if (!resp.ok) {
-    setErrors({ api: data.error || 'Fel e-post eller lösenord.' });
-    return;
-  }
+      if (!resp.ok) {
+        setErrors({ api: data.error || 'Fel e-post eller lösenord.' });
+        return;
+      }
 
-  // 3) store the JWT
-  localStorage.setItem('userToken', data.token);
-  // 4) redirect to home
-  navigate('/home');
+      // 3) Store token and redirect (FIXED PART)
+      if (data.token) {
+        localStorage.setItem('userToken', data.token);
+        navigate('/home', { replace: true });
+      } else {
+        setErrors({ api: 'Inloggning misslyckades: Ingen token mottagen' });
+      }
     } catch {
       setErrors({ api: 'Kunde inte logga in. Försök igen senare.' });
     }
@@ -69,24 +70,20 @@ function LoginPage() {
 
   return (
     <div className="page-container">
-		<div className="login-wrapper">
-			<div className="login-logo-container">
-				
-                  <img src={Logo} alt="Verkstadium logotyp" className="logo" />
-                
-				<div className='text-container'>
-					<h1>Verkstadium</h1>
-					<p>Vi har koll på verkstäder nära dig!</p>
-
-					
-				</div>
-				</div>
-			</div>
-			<img src={BigWheel} alt="bakgrunds-dekoration" className="background-wheel"/>
-		
+      <div className="login-wrapper">
+        <div className="login-logo-container">
+          <img src={Logo} alt="Verkstadium logotyp" className="logo" />
+          <div className='text-container'>
+            <h1>Verkstadium</h1>
+            <p>Vi har koll på verkstäder nära dig!</p>
+          </div>
+        </div>
+      </div>
+      <img src={BigWheel} alt="bakgrunds-dekoration" className="background-wheel"/>
       
       {state?.success && <p className="success">{state.success}</p>}
       {errors.api && <p className="error api-error">{errors.api}</p>}
+      
       <form className="form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="email">E-post:</label>
@@ -101,6 +98,7 @@ function LoginPage() {
           />
           <p className="error">{errors.email || '\u00A0'}</p>
         </div>
+        
         <div className="form-group">
           <label htmlFor="password">Lösenord:</label>
           <input
@@ -115,18 +113,14 @@ function LoginPage() {
           <p className="error">{errors.password || '\u00A0'}</p>
         </div>
 
-       
-
-
-	  
-
-
-      <button type="submit" className="login-btn">
+        <button type="submit" className="login-btn">
           Logga in
         </button>
-      </form> 
-	  
-      <Link to="/register" className="link">Har du inget konto? Registrera dig</Link>
+      </form>
+      
+      <Link to="/register" className="link">
+        Har du inget konto? Registrera dig
+      </Link>
     </div>
   );
 }

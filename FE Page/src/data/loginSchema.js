@@ -6,9 +6,9 @@ export const loginSchema = Joi.object({
     'any.required': 'E-post krävs',
     'string.email': 'Ange en giltig e-postadress',
   }),
-  password: Joi.string().min(8).required().messages({
+  password: Joi.string().min(6).required().messages({
     'string.empty': 'Lösenord krävs',
     'any.required': 'Lösenord krävs',
-    'string.min': 'Lösenordet måste vara minst 8 tecken',
+    'string.min': 'Lösenordet måste vara minst 6 tecken',
   }),
 });
