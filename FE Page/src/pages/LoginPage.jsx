@@ -47,23 +47,31 @@ function LoginPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-      const data = await resp.json();
+
+      // Check if response is JSON
+      let data = null;
+      try {
+        data = await resp.json();
+      } catch (err) {
+        console.error("Failed to parse JSON:", err);
+      }
 
       console.log("Full login data:", data);
 
       if (!resp.ok) {
-        setErrors({ api: data.error || 'Fel e-post eller lösenord.' });
+        setErrors({ api: data?.error || 'Fel e-post eller lösenord.' });
         return;
       }
 
-      // 3) Store token and redirect (FIXED PART)
-      if (data.token) {
+      // 3) Store token and redirect
+      if (data && data.token) {
         localStorage.setItem('userToken', data.token);
-        navigate('/home', { replace: true });
+        navigate('/feature-form', { replace: true });
       } else {
         setErrors({ api: 'Inloggning misslyckades: Ingen token mottagen' });
       }
-    } catch {
+    } catch (err) {
+      console.error("Login request failed:", err);
       setErrors({ api: 'Kunde inte logga in. Försök igen senare.' });
     }
   };

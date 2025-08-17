@@ -16,20 +16,22 @@ import CarsPage from './pages/CarsPage.jsx';
 const router = createHashRouter([
   {
     path: '/',
-    element: <App />, // ✅ Do NOT wrap App in another Router
+    element: <App />,
     children: [
       { index: true, element: <StartPage /> },
       { path: '/how-it-works', element: <HowItWorksPage /> },
       { path: '/register', element: <RegisterPage /> },
       { path: '/login', element: <LoginPage /> },
+
+      // ✅ Protected routes
       {
-        element: <ProtectedRoute />, // ✅ Only wrap protected routes
+        element: <ProtectedRoute />,  // Parent wrapper
         children: [
           { path: '/home', element: <HomePage /> },
           { path: '/my-pages', element: <MyPagesPage /> },
           { path: '/my-pages/settings', element: <SettingsPage /> },
           { path: '/my-pages/cars', element: <CarsPage /> },
-          { path: '/feature-form', element: <FeatureFormPage /> },
+          { path: '/feature-form', element: <FeatureFormPage /> }, // Here!
         ],
       },
     ],

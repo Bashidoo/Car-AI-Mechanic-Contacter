@@ -5,7 +5,7 @@ function App() {
     <div>
       {/* Header, navbar, or other layout components */}
       <header>
-        <h1>My Car Dealership</h1>
+        <h1></h1>
       </header>
 
       {/* Render child routes */}
