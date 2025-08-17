@@ -13,51 +13,23 @@ import MyPagesPage from './pages/MyPages.jsx';
 import SettingsPage from './pages/SettingsPage.jsx';
 import CarsPage from './pages/CarsPage.jsx';
 
-
 const router = createHashRouter([
   {
     path: '/',
-    element: <App />,
+    element: <App />, // ✅ Do NOT wrap App in another Router
     children: [
+      { index: true, element: <StartPage /> },
+      { path: '/how-it-works', element: <HowItWorksPage /> },
+      { path: '/register', element: <RegisterPage /> },
+      { path: '/login', element: <LoginPage /> },
       {
-        index: true,
-        element: <StartPage />,
-      },
-      {
-        path: '/how-it-works',
-        element: <HowItWorksPage />,
-      },
-      {
-        path: '/register',
-        element: <RegisterPage />,
-      },
-      {
-        path: '/login',
-        element: <LoginPage />,
-      },
-      {
-        element: <ProtectedRoute />,
+        element: <ProtectedRoute />, // ✅ Only wrap protected routes
         children: [
-          {
-            path: '/home',
-            element: <HomePage />,
-          },
-          {
-            path: '/my-pages',
-            element: <MyPagesPage />,
-          },
-          {
-            path: '/my-pages/settings',
-            element: <SettingsPage />,
-          },
-          {
-            path: '/my-pages/cars',
-            element: <CarsPage />,
-          },
-          {
-            path: '/feature-form',
-            element: <FeatureFormPage />,
-          },
+          { path: '/home', element: <HomePage /> },
+          { path: '/my-pages', element: <MyPagesPage /> },
+          { path: '/my-pages/settings', element: <SettingsPage /> },
+          { path: '/my-pages/cars', element: <CarsPage /> },
+          { path: '/feature-form', element: <FeatureFormPage /> },
         ],
       },
     ],
@@ -67,5 +39,5 @@ const router = createHashRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>,
+  </StrictMode>
 );
