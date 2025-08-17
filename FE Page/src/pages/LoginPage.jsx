@@ -16,13 +16,51 @@ function LoginPage() {
   const { state } = useLocation();
   const API = import.meta.env.VITE_API_URL;
 
-  // Debug
-  if (import.meta.env.DEV) {
-    console.log("API URL:", import.meta.env.VITE_API_URL);
-  }
+  // Debug - only log once, not on every render
+  console.log("API URL:", import.meta.env.VITE_API_URL);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Helper function to create user in localStorage
+  const createUserInLocalStorage = (token) => {
+    try {
+      // Decode the JWT token to get user info
+      const parts = token.split('.');
+      if (parts.length !== 3) {
+        console.error('Invalid JWT token format');
+        return false;
+      }
+      
+      const decoded = JSON.parse(atob(parts[1]));
+      console.log('Decoded token for user creation:', decoded);
+      
+      // Get existing users or create empty array
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      
+      // Check if user already exists
+      const existingUserIndex = users.findIndex(u => u.email === decoded.email);
+      
+      if (existingUserIndex === -1) {
+        // User doesn't exist, create new user entry
+        const newUser = {
+          email: decoded.email,
+          fullName: decoded.fullName || decoded.name || 'Unknown User',
+          cars: []
+        };
+        users.push(newUser);
+        localStorage.setItem('users', JSON.stringify(users));
+        console.log('Created new user in localStorage:', decoded.email);
+      } else {
+        console.log('User already exists in localStorage:', decoded.email);
+      }
+      
+      return true;
+    } catch (err) {
+      console.error('Error creating user in localStorage:', err);
+      return false;
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -59,13 +97,37 @@ function LoginPage() {
       console.log("Full login data:", data);
 
       if (!resp.ok) {
-        setErrors({ api: data?.error || 'Fel e-post eller lösenord.' });
+        // Handle different error formats from API
+        let errorMessage = 'Fel e-post eller lösenord.';
+        
+        if (data) {
+          if (Array.isArray(data)) {
+            errorMessage = data[0] || errorMessage;
+          } else if (data.error) {
+            errorMessage = data.error;
+          } else if (data.message) {
+            errorMessage = data.message;
+          }
+        }
+        
+        setErrors({ api: errorMessage });
         return;
       }
 
-      // 3) Store token and redirect
+      // 3) Store token and create user in localStorage
       if (data && data.token) {
+        // Store the API token
         localStorage.setItem('userToken', data.token);
+        
+        // Create user entry in localStorage for car management
+        const userCreated = createUserInLocalStorage(data.token);
+        
+        if (!userCreated) {
+          setErrors({ api: 'Inloggning lyckades men kunde inte skapa användardata.' });
+          return;
+        }
+        
+        // Navigate to the appropriate page
         navigate('/feature-form', { replace: true });
       } else {
         setErrors({ api: 'Inloggning misslyckades: Ingen token mottagen' });
