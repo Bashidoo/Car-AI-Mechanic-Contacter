@@ -1,0 +1,55 @@
+Index: API/Program.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using CarDealership.Domain.Entities;\r\nusing CarDealership.Infrastructure.Persistence;\r\nusing CarDealership.Infrastructure.Repositories;\r\nusing CarDealership.Infrastructure.Security;\r\nusing CarDealership.Application.Interfaces.Userinterface;\r\nusing CarDealership.Application.Features.Authentication;\r\n\r\nusing Microsoft.EntityFrameworkCore;\r\nusing Microsoft.AspNetCore.Authentication.JwtBearer;\r\nusing Microsoft.IdentityModel.Tokens;\r\nusing Microsoft.AspNetCore.Identity;\r\nusing FluentValidation.AspNetCore;\r\nusing MediatR;\r\nusing System.Text;\r\nusing FluentValidation;\r\n\r\nvar builder = WebApplication.CreateBuilder(args);\r\n\r\n// 1) Controllers & Swagger\r\nbuilder.Services.AddControllers();\r\nbuilder.Services.AddEndpointsApiExplorer();\r\nbuilder.Services.AddSwaggerGen();\r\n\r\n// 2) EF Core — point to your SQL Express instance in appsettings.json\r\nbuilder.Services.AddDbContext<CarDealershipDbContext>(opts =>\r\n    opts.UseSqlServer(builder.Configuration.GetConnectionString(\"Default\")));\r\n\r\n// 3) Password hashing for User\r\nbuilder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();\r\n\r\n// 4) MediatR + FluentValidation\r\nbuilder.Services.AddMediatR(cfg =>\r\n    cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommand).Assembly));\r\nbuilder.Services.AddFluentValidationAutoValidation()\r\n                .AddFluentValidationClientsideAdapters()\r\n                .AddValidatorsFromAssemblyContaining<RegisterUserCommand>();\r\n\r\n// 5) Your interfaces → Infrastructure implementations\r\nbuilder.Services.AddScoped<\r\n    CarDealership.Application.Interfaces.Userinterface.IUserRepository,\r\n    CarDealership.Infrastructure.Repositories.UserRepository>();\r\n\r\nbuilder.Services.AddScoped<\r\n    CarDealership.Application.Interfaces.Userinterface.IJwtTokenService,\r\n    CarDealership.Infrastructure.Security.JwtTokenService>();\r\n\r\n// 6) JWT Bearer Authentication\r\nvar jwt = builder.Configuration.GetSection(\"Jwt\");\r\nbuilder.Services.AddAuthentication(options =>\r\n{\r\n    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;\r\n    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;\r\n})\r\n.AddJwtBearer(opts =>\r\n{\r\n    opts.RequireHttpsMetadata = true;\r\n    opts.SaveToken = true;\r\n    opts.TokenValidationParameters = new TokenValidationParameters\r\n    {\r\n        ValidateIssuer = true,\r\n        ValidateAudience = true,\r\n        ValidateLifetime = true,\r\n        ValidateIssuerSigningKey = true,\r\n        ValidIssuer = jwt[\"Issuer\"],\r\n        ValidAudience = jwt[\"Audience\"],\r\n        IssuerSigningKey = new SymmetricSecurityKey(\r\n            Encoding.UTF8.GetBytes(jwt[\"Key\"]))\r\n    };\r\n});\r\n\r\nvar app = builder.Build();\r\n\r\n// 7) Middleware pipeline\r\nif (app.Environment.IsDevelopment())\r\n{\r\n    app.UseSwagger();\r\n    app.UseSwaggerUI();\r\n}\r\n\r\napp.UseAuthentication();\r\napp.UseAuthorization();\r\n\r\napp.MapControllers();\r\n\r\napp.Run();\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/API/Program.cs b/API/Program.cs
+--- a/API/Program.cs	(revision 3df1fdc3ac087e097af265da67aa471888271c0a)
++++ b/API/Program.cs	(date 1750607480506)
+@@ -1,9 +1,4 @@
+-using CarDealership.Domain.Entities;
+-using CarDealership.Infrastructure.Persistence;
+-using CarDealership.Infrastructure.Repositories;
+-using CarDealership.Infrastructure.Security;
+-using CarDealership.Application.Interfaces.Userinterface;
+-using CarDealership.Application.Features.Authentication;
++
+ 
+ using Microsoft.EntityFrameworkCore;
+ using Microsoft.AspNetCore.Authentication.JwtBearer;
+@@ -12,6 +7,9 @@
+ using FluentValidation.AspNetCore;
+ using MediatR;
+ using System.Text;
++using CarDealership.Application.Features.Authentication;
++using CarDealership.Domain.Entities;
++using CarDealership.Infrastructure.Persistence;
+ using FluentValidation;
+ 
+ var builder = WebApplication.CreateBuilder(args);
+Index: Application/Cars/Queries/GetAllCarsQuery.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing System.Text;\r\nusing System.Threading.Tasks;\r\n\r\nnamespace Application.Cars.Queries\r\n{\r\n    internal class GetAllCarsQuery\r\n    {\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Application/Cars/Queries/GetAllCarsQuery.cs b/Application/Cars/Queries/GetAllCarsQuery.cs
+--- a/Application/Cars/Queries/GetAllCarsQuery.cs	(revision 3df1fdc3ac087e097af265da67aa471888271c0a)
++++ b/Application/Cars/Queries/GetAllCarsQuery.cs	(date 1750607480526)
+@@ -3,10 +3,12 @@
+ using System.Linq;
+ using System.Text;
+ using System.Threading.Tasks;
++using Application.Cars.Dtos;
++using MediatR;
+ 
+ namespace Application.Cars.Queries
+ {
+-    internal class GetAllCarsQuery
++    internal class GetAllCarsQuery : IRequest<List<CarDto>>
+     {
+     }
+ }

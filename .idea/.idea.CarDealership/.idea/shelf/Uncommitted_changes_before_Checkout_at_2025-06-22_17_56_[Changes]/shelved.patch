@@ -1,0 +1,157 @@
+Index: API/Program.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using Infrastructure;\r\nusing MediatR;\r\nusing Application;\r\nusing Application.Cars.Handlers.QueryHandler;\r\nusing Infrastructure.Data;\r\nusing Microsoft.EntityFrameworkCore;\r\n\r\n\r\nnamespace API\r\n{\r\n    public class Program\r\n    {\r\n        public static void Main(string[] args)\r\n        {\r\n            var builder = WebApplication.CreateBuilder(args);\r\n            \r\n            //Database connection string\r\n            builder.Services.AddDbContext<AppDbContext>(options =>\r\n                options.UseSqlServer(builder.Configuration.GetConnectionString(\"DefaultConnection\")));\r\n\r\n\r\n            // Add services to the container.\r\n            builder.Services.AddInfrastructure(builder.Configuration);\r\n            \r\n            // Add MediatR\r\n            builder.Services.AddMediatR(cfg =>\r\n            {\r\n                cfg.RegisterServicesFromAssembly(typeof(GetAllCarsQueryHandler).Assembly);\r\n            });\r\n\r\n\r\n\r\n            builder.Services.AddControllers();\r\n            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle\r\n            builder.Services.AddEndpointsApiExplorer();\r\n            builder.Services.AddSwaggerGen();\r\n\r\n            var app = builder.Build();\r\n\r\n            // Configure the HTTP request pipeline.\r\n            if (app.Environment.IsDevelopment())\r\n            {\r\n                app.UseSwagger();\r\n                app.UseSwaggerUI();\r\n            }\r\n\r\n            app.UseAuthorization();\r\n\r\n\r\n            app.MapControllers();\r\n            // Seed the database with initial data\r\n            using (var scope = app.Services.CreateScope())\r\n            {\r\n                var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();\r\n                DataSeederCars.SeedAsync(dbContext).GetAwaiter().GetResult();\r\n            }\r\n            app.Run();\r\n            // Seed the database with initial data\r\n            \r\n\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/API/Program.cs b/API/Program.cs
+--- a/API/Program.cs	(revision 99af82801c9852afede487fa31bf5a5c48fa2bc5)
++++ b/API/Program.cs	(date 1750607700900)
+@@ -1,5 +1,17 @@
++
++
++using Microsoft.EntityFrameworkCore;
++using Microsoft.AspNetCore.Authentication.JwtBearer;
++using Microsoft.IdentityModel.Tokens;
++using Microsoft.AspNetCore.Identity;
++using FluentValidation.AspNetCore;
+ using Infrastructure;
+ using MediatR;
++using System.Text;
++using CarDealership.Application.Features.Authentication;
++using CarDealership.Domain.Entities;
++using CarDealership.Infrastructure.Persistence;
++using FluentValidation;
+ using Application;
+ using Application.Cars.Handlers.QueryHandler;
+ using Infrastructure.Data;
+@@ -18,46 +30,70 @@
+             builder.Services.AddDbContext<AppDbContext>(options =>
+                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+ 
+-
+-            // Add services to the container.
+-            builder.Services.AddInfrastructure(builder.Configuration);
+-            
+-            // Add MediatR
+-            builder.Services.AddMediatR(cfg =>
+-            {
+-                cfg.RegisterServicesFromAssembly(typeof(GetAllCarsQueryHandler).Assembly);
+-            });
+-
+-
+-
+-            builder.Services.AddControllers();
+-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+-            builder.Services.AddEndpointsApiExplorer();
+-            builder.Services.AddSwaggerGen();
++// 1) Controllers & Swagger
++builder.Services.AddControllers();
++builder.Services.AddEndpointsApiExplorer();
++builder.Services.AddSwaggerGen();
+ 
+-            var app = builder.Build();
++// 2) EF Core — point to your SQL Express instance in appsettings.json
++builder.Services.AddDbContext<CarDealershipDbContext>(opts =>
++    opts.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
++
++// 3) Password hashing for User
++builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
++
++// 4) MediatR + FluentValidation
++builder.Services.AddMediatR(cfg =>
++    cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommand).Assembly));
++builder.Services.AddFluentValidationAutoValidation()
++                .AddFluentValidationClientsideAdapters()
++                .AddValidatorsFromAssemblyContaining<RegisterUserCommand>();
++
++// 5) Your interfaces → Infrastructure implementations
++builder.Services.AddScoped<
++    CarDealership.Application.Interfaces.Userinterface.IUserRepository,
++    CarDealership.Infrastructure.Repositories.UserRepository>();
++
++builder.Services.AddScoped<
++    CarDealership.Application.Interfaces.Userinterface.IJwtTokenService,
++    CarDealership.Infrastructure.Security.JwtTokenService>();
++
++// 6) JWT Bearer Authentication
++var jwt = builder.Configuration.GetSection("Jwt");
++builder.Services.AddAuthentication(options =>
++{
++    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
++    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
++})
++.AddJwtBearer(opts =>
++{
++    opts.RequireHttpsMetadata = true;
++    opts.SaveToken = true;
++    opts.TokenValidationParameters = new TokenValidationParameters
++    {
++        ValidateIssuer = true,
++        ValidateAudience = true,
++        ValidateLifetime = true,
++        ValidateIssuerSigningKey = true,
++        ValidIssuer = jwt["Issuer"],
++        ValidAudience = jwt["Audience"],
++        IssuerSigningKey = new SymmetricSecurityKey(
++            Encoding.UTF8.GetBytes(jwt["Key"]))
++    };
++});
++
++var app = builder.Build();
+ 
+-            // Configure the HTTP request pipeline.
+-            if (app.Environment.IsDevelopment())
+-            {
+-                app.UseSwagger();
+-                app.UseSwaggerUI();
+-            }
++// 7) Middleware pipeline
++if (app.Environment.IsDevelopment())
++{
++    app.UseSwagger();
++    app.UseSwaggerUI();
++}
+ 
+-            app.UseAuthorization();
++app.UseAuthentication();
++app.UseAuthorization();
+ 
+-
+-            app.MapControllers();
+-            // Seed the database with initial data
+-            using (var scope = app.Services.CreateScope())
+-            {
+-                var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+-                DataSeederCars.SeedAsync(dbContext).GetAwaiter().GetResult();
+-            }
+-            app.Run();
+-            // Seed the database with initial data
+-            
+-
+-        }
+-    }
+-}
++app.MapControllers();
++
++app.Run();
+Index: Application/Cars/Queries/GetAllCarsQuery.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing System.Text;\r\nusing System.Threading.Tasks;\r\nusing Application.Cars.Dtos;\r\nusing MediatR;\r\n\r\nnamespace Application.Cars.Queries\r\n{\r\n    public record GetAllCarsQuery : IRequest<List<CarDto>>;\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Application/Cars/Queries/GetAllCarsQuery.cs b/Application/Cars/Queries/GetAllCarsQuery.cs
+--- a/Application/Cars/Queries/GetAllCarsQuery.cs	(revision 99af82801c9852afede487fa31bf5a5c48fa2bc5)
++++ b/Application/Cars/Queries/GetAllCarsQuery.cs	(date 1750607715754)
+@@ -8,5 +8,8 @@
+ 
+ namespace Application.Cars.Queries
+ {
++    internal class GetAllCarsQuery : IRequest<List<CarDto>>
++    {
++    }
+     public record GetAllCarsQuery : IRequest<List<CarDto>>;
+ }
